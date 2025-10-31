@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - University Event Portal</title>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1><a href="index.html">University Event Portal</a></h1>
+        </div>
+    </header>
+
+    <main class="logout-content">
+        <div class="logout-box">
+            <h1>🔒 Logout</h1>
+            <p>Are you sure you want to logout?</p>
+            
+            <div class="logout-buttons">
+                <button class="btn-danger" onclick="logout()">Yes, Logout</button>
+                <button class="btn-secondary" onclick="goBack()">Cancel</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function logout() {
+            alert('You have been successfully logged out!');
+            window.location.href = 'index.html';
+        }
+        
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - University Event Portal</title>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1>University Event Portal</h1>
+        </div>
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li><a href="profile.html">My Profile</a></li>
+                <li><a href="events.html">All Events</a></li>
+                <li><a href="createevent.html">Create Event</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-content">
+        <h1>Dashboard</h1>
+        
+        <!-- Upcoming Events Widget -->
+        <div class="upcoming-events-widget">
+            <h2>Upcoming Events</h2>
+            <div class="today-event">
+                <h3>Today</h3>
+                <div class="event-alert">
+                    <p>You have an event today at 10:00 AM — AI Hackathon</p>
+                </div>
+            </div>
+            <div class="tomorrow-event">
+                <h3>Tomorrow</h3>
+                <div class="event-alert">
+                    <p>You have an event tomorrow at 2:00 PM — Career Fair</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <div class="action-buttons">
+                <a href="createevent.html" class="btn-primary">Create New Event</a>
+                <a href="events.html" class="btn-secondary">Browse All Events</a>
+                <a href="calendar.html" class="btn-secondary">View Calendar</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 University Event Management Portal</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

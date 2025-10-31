@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - University Event Portal</title>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1><a href="index.html">University Event Portal</a></h1>
+        </div>
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li><a href="profile.html">My Profile</a></li>
+                <li><a href="events.html">Past Events</a></li>
+                <li><a href="create-event.html">Create Event</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="profile-content">
+        <h1>My Profile</h1>
+        
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <div class="avatar-placeholder">👤</div>
+                </div>
+                <div class="profile-info">
+                    <h2 id="profile-name">Loading...</h2>
+                    <p id="profile-email">Loading...</p>
+                    <p id="profile-faculty">Loading...</p>
+                </div>
+                <button class="btn-secondary" id="edit-profile-btn">Edit Profile</button>
+            </div>
+
+            <!-- Edit Profile Form (hidden by default) -->
+            <form class="edit-profile-form" id="edit-profile-form" style="display: none;">
+                <div class="form-group">
+                    <label for="edit-name">Full Name</label>
+                    <input type="text" id="edit-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-email">Email</label>
+                    <input type="email" id="edit-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-faculty">Faculty</label>
+                    <select id="edit-faculty" required>
+                        <option value="engineering">Engineering</option>
+                        <option value="science">Science</option>
+                        <option value="business">Business</option>
+                        <option value="arts">Arts</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-major">Major/Department</label>
+                    <input type="text" id="edit-major">
+                </div>
+                <div class="form-group">
+                    <label for="edit-phone">Phone Number</label>
+                    <input type="tel" id="edit-phone">
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                    <button type="button" class="btn-secondary" id="cancel-edit">Cancel</button>
+                </div>
+            </form>
+
+            <!-- My Events Stats -->
+            <div class="profile-stats">
+                <h3>My Event Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4 id="events-attended">0</h4>
+                        <p>Events Attended</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4 id="events-created">0</h4>
+                        <p>Events Created</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4 id="upcoming-events">0</h4>
+                        <p>Upcoming Events</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Upcoming Events -->
+            <div class="my-upcoming-events">
+                <h3>My Upcoming Events</h3>
+                <div id="my-upcoming-container">
+                    <!-- JavaScript will fill this -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 University Event Management Portal</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

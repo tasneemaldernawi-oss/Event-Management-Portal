@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event - University Event Portal</title>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1><a href="index.html">University Event Portal</a></h1>
+        </div>
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li><a href="profile.html">My Profile</a></li>
+                <li><a href="events.html">Past Events</a></li>
+                <li><a href="create-event.html">Create Event</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="create-event-content">
+        <h1>Create New Event</h1>
+        
+        <div class="form-container">
+            <form class="create-event-form" id="event-form">
+                <div class="form-section">
+                    <h3>Event Details</h3>
+                    <div class="form-group">
+                        <label for="event-name">Event Name *</label>
+                        <input type="text" id="event-name" placeholder="Enter event name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-description">Event Description</label>
+                        <textarea id="event-description" rows="4" placeholder="Describe your event..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-type">Event Type</label>
+                        <select id="event-type">
+                            <option value="workshop">Workshop</option>
+                            <option value="seminar">Seminar</option>
+                            <option value="conference">Conference</option>
+                            <option value="social">Social Event</option>
+                            <option value="sports">Sports</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Location & Time</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="room-number">Room Number *</label>
+                            <input type="text" id="room-number" placeholder="e.g., 205" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="building">Building</label>
+                            <input type="text" id="building" placeholder="e.g., Engineering Building">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="event-date">Event Date *</label>
+                            <input type="date" id="event-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-time">Event Time *</label>
+                            <input type="time" id="event-time" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-duration">Duration (hours)</label>
+                            <input type="number" id="event-duration" min="1" max="8" value="2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Faculty & Capacity</h3>
+                    <div class="form-group">
+                        <label for="event-faculty">Faculty *</label>
+                        <select id="event-faculty" required>
+                            <option value="">Select Faculty</option>
+                            <option value="engineering">Engineering</option>
+                            <option value="science">Science</option>
+                            <option value="business">Business</option>
+                            <option value="arts">Arts</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="max-attendees">Maximum Attendees</label>
+                        <input type="number" id="max-attendees" min="1" max="500" placeholder="Optional">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="submit-btn">
+                        Create Event
+                    </button>
+                    <button type="reset" class="btn-secondary">Clear Form</button>
+                </div>
+            </form>
+
+            <!-- Event Preview -->
+            <div class="event-preview" id="event-preview">
+                <h3>Event Preview</h3>
+                <div class="preview-content">
+                    <p><strong>Event:</strong> <span id="preview-name">Not set</span></p>
+                    <p><strong>Date & Time:</strong> <span id="preview-datetime">Not set</span></p>
+                    <p><strong>Location:</strong> <span id="preview-location">Not set</span></p>
+                    <p><strong>Faculty:</strong> <span id="preview-faculty">Not set</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message (hidden by default) -->
+        <div class="success-message" id="success-message" style="display: none;">
+            <div class="message-content">
+                <h3>✅ Event Created Successfully!</h3>
+                <p>Your event "<span id="success-event-name"></span>" has been submitted for approval.</p>
+                <p>You will receive a confirmation email once approved by the admin.</p>
+                <div class="message-actions">
+                    <button class="btn-primary" onclick="window.location.href='index.html'">Back to Dashboard</button>
+                    <button class="btn-secondary" onclick="document.getElementById('event-form').reset(); document.getElementById('success-message').style.display='none';">Create Another Event</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 University Event Management Portal</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
