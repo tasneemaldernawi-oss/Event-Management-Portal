@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - University Event Portal</title>
+    <title>My Profile</title>
 </head>
 <body>
     <header class="header">
@@ -14,7 +14,7 @@
             <ul class="nav-menu">
                 <li><a href="profile.html">My Profile</a></li>
                 <li><a href="events.html">Past Events</a></li>
-                <li><a href="create-event.html">Create Event</a></li>
+                <li><a href="createevent.html">Create Event</a></li>
                 <li><a href="calendar.html">Calendar</a></li>
                 <li><a href="logout.html">Logout</a></li>
             </ul>
@@ -24,78 +24,20 @@
     <main class="profile-content">
         <h1>My Profile</h1>
         
-        <div class="profile-section">
-            <div class="profile-header">
-                <div class="profile-avatar">
-                    <div class="avatar-placeholder">👤</div>
-                </div>
-                <div class="profile-info">
-                    <h2 id="profile-name">Loading...</h2>
-                    <p id="profile-email">Loading...</p>
-                    <p id="profile-faculty">Loading...</p>
-                </div>
-                <button class="btn-secondary" id="edit-profile-btn">Edit Profile</button>
+        <div class="profile-simple">
+            <div class="profile-info">
+                <p><strong>Name:</strong> <span id="display-name">Loading...</span></p>
+                <p><strong>Email:</strong> <span id="display-email">Loading...</span></p>
+                <p><strong>Faculty:</strong> <span id="display-faculty">Loading...</span></p>
             </div>
-
-            <!-- Edit Profile Form (hidden by default) -->
-            <form class="edit-profile-form" id="edit-profile-form" style="display: none;">
-                <div class="form-group">
-                    <label for="edit-name">Full Name</label>
-                    <input type="text" id="edit-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="edit-email">Email</label>
-                    <input type="email" id="edit-email" required>
-                </div>
-                <div class="form-group">
-                    <label for="edit-faculty">Faculty</label>
-                    <select id="edit-faculty" required>
-                        <option value="engineering">Engineering</option>
-                        <option value="science">Science</option>
-                        <option value="business">Business</option>
-                        <option value="arts">Arts</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="edit-major">Major/Department</label>
-                    <input type="text" id="edit-major">
-                </div>
-                <div class="form-group">
-                    <label for="edit-phone">Phone Number</label>
-                    <input type="tel" id="edit-phone">
-                </div>
-                <div class="form-buttons">
-                    <button type="submit" class="btn-primary">Save Changes</button>
-                    <button type="button" class="btn-secondary" id="cancel-edit">Cancel</button>
-                </div>
-            </form>
-
-            <!-- My Events Stats -->
+            
             <div class="profile-stats">
-                <h3>My Event Statistics</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h4 id="events-attended">0</h4>
-                        <p>Events Attended</p>
-                    </div>
-                    <div class="stat-card">
-                        <h4 id="events-created">0</h4>
-                        <p>Events Created</p>
-                    </div>
-                    <div class="stat-card">
-                        <h4 id="upcoming-events">0</h4>
-                        <p>Upcoming Events</p>
-                    </div>
-                </div>
+                <h3>My Stats</h3>
+                <p>Events Attended: <span id="events-attended">0</span></p>
+                <p>Events Created: <span id="events-created">0</span></p>
             </div>
-
-            <!-- My Upcoming Events -->
-            <div class="my-upcoming-events">
-                <h3>My Upcoming Events</h3>
-                <div id="my-upcoming-container">
-                    <!-- JavaScript will fill this -->
-                </div>
-            </div>
+            
+            <button class="btn-primary" id="edit-profile-btn">Edit Profile</button>
         </div>
     </main>
 
