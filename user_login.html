@@ -1,5 +1,6 @@
+
 <section>
-<main>
+
 <div class="user_login-container">
   <h2>User Login</h2>
   <form id="loginForm">
@@ -16,7 +17,8 @@
   </form>
 
   
-  <a href="home.html" id="dashboardLink" class="dashboard-link">Log in</a>
+  <a href="Student/home.html" id="dashboardLink" class="dashboard-link">Log in</a>
+  <a href="Admin/admin_login.html">if you'r admin click here!</a>
 </div>
 
 <script>
@@ -26,10 +28,10 @@
   
   link.addEventListener('click', function(event) {
     if (!form.checkValidity()) {
-      event.preventDefault(); // يمنع الانتقال
+      event.preventDefault(); 
       alert("Please fill all fields correctly.");
     }
   });
 </script>
-</main>
+
 </section>
