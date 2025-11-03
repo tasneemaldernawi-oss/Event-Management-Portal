@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar - University Event Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="responsive.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .calendar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .calendar {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .events-panel {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            height: fit-content;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: #0056b3;
+        }
+
+        .month-year {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: bold;
+            background: #f8f9fa;
+            padding: 10px 0;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .weekday {
+            padding: 10px;
+            color: #555;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .day {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            cursor: pointer;
+            background: white;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            transition: all 0.2s ease;
+        }
+
+        .day:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .day.selected {
+            border: 2px solid #007bff;
+            background: #e7f3ff;
+        }
+
+        .day-number {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .empty {
+            background: #f8f9fa;
+            border: none;
+            cursor: default;
+        }
+
+        .empty:hover {
+            background: #f8f9fa;
+            transform: none;
+        }
+
+        .today {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .today:hover {
+            background: #0056b3;
+        }
+
+        .event-day {
+            border: 2px solid #28a745;
+        }
+
+        .events-list {
+            margin-top: 5px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+
+        .event-item {
+            background: #e8f5e8;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin: 1px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Events Panel Styles */
+        .events-panel h3 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+            color: #333;
+        }
+
+        .selected-date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .events-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .no-events {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        .event-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .event-card:hover {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .event-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .event-details {
+            display: grid;
+            gap: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .event-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .event-detail i {
+            width: 16px;
+            text-align: center;
+            color: #007bff;
+        }
+
+        .event-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .status-upcoming { background: aquamarine; color: #000; }
+        .status-completed { background: rgb(162, 182, 175); color: #000; }
+        .status-pending { background: rgb(159, 104, 90); color: white; }
+    </style>
+</head>
+<body>
+<user-header></user-header> 
+<user-sidebar active="calendar"></user-sidebar> 
+
+    <main style="margin-left: 180px; margin-top: 56px; padding: 20px;" id="main-content">
+    <h2 class="mb-2">Event Calendar</h2>
+    <p class="text-muted mb-4">View all events organized by date</p>
+    <div class="calendar-container">
+        
+        <div class="calendar">
+            <h4>Calendar View</h4>
+            <p>Select a date to view events</p>
+            <div class="calendar-header">
+                <button class="nav-btn" id="prevMonth">←</button>
+                <h1 class="month-year" id="currentMonthYear">November 2024</h1>
+                <button class="nav-btn" id="nextMonth">→</button>
+            </div>
+
+            <div class="weekdays">
+                <div class="weekday">Sun</div>
+                <div class="weekday">Mon</div>
+                <div class="weekday">Tue</div>
+                <div class="weekday">Wed</div>
+                <div class="weekday">Thu</div>
+                <div class="weekday">Fri</div>
+                <div class="weekday">Sat</div>
+            </div>
+
+            <div class="days-grid" id="calendarDays">
+                <!-- Days will be generated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="events-panel">
+            <h3>Event Details</h3>
+            <div class="selected-date" id="selectedDate">Select a date to view events</div>
+            <div class="events-container" id="eventsContainer">
+                <div class="no-events">No date selected</div>
+            </div>
+        </div>
+    </div>
+    </main>
+
+    <main-footer></main-footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../Layout/guest_user_header.js"></script>
+    <script type="module" src="../Layout/guest_user_footer.js"></script>
+    <script>
+        // Function to get events from localStorage
+        function getEventsFromStorage() {
+            try {
+                const eventsJson = localStorage.getItem('userEvents');
+                if (eventsJson) {
+                    return JSON.parse(eventsJson);
+                }
+                return [];
+            } catch (error) {
+                console.error('Error reading events from localStorage:', error);
+                return [];
+            }
+        }
+        
+        // Default/hardcoded events - only upcoming events
+        const defaultEvents = [
+            { 
+                date: '2024-12-15', 
+                title: 'AI Hackathon', 
+                time: '10:00 AM',
+                location: 'Main Hall',
+                faculty: 'Engineering',
+                registrations: '45/50',
+                status: 'upcoming'
+            },
+            { 
+                date: '2024-12-20', 
+                title: 'Career Fair', 
+                time: '2:00 PM',
+                location: 'Convention Center',
+                faculty: 'Business',
+                registrations: '100/150',
+                status: 'upcoming'
+            },
+            { 
+                date: '2024-12-25', 
+                title: 'Tech Conference', 
+                time: '9:00 AM',
+                location: 'Room 13',
+                faculty: 'Computer Science',
+                registrations: '80/100',
+                status: 'upcoming'
+            },
+            { 
+                date: '2025-01-05', 
+                title: 'Workshop: Web Development', 
+                time: '3:00 PM',
+                location: 'Room 26',
+                faculty: 'Engineering',
+                registrations: '40/40',
+                status: 'upcoming'
+            },
+            { 
+                date: '2025-01-12', 
+                title: 'Science Expo', 
+                time: '11:00 AM',
+                location: 'Room 3',
+                faculty: 'Science',
+                registrations: '25/30',
+                status: 'upcoming'
+            }
+        ];
+        
+        // Get user-created events from localStorage and merge with default events
+        function getAllEvents() {
+            const userEvents = getEventsFromStorage();
+            // Merge user events with default events
+            const allEvents = [...defaultEvents, ...userEvents];
+            
+            // Sort by date
+            allEvents.sort((a, b) => {
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                return dateA - dateB;
+            });
+            
+            return allEvents;
+        }
+        
+        // Get all events (default + user-created)
+        const events = getAllEvents();
+
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+        let selectedDay = null;
+
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        function generateCalendar(month, year) {
+            const calendarDays = document.getElementById('calendarDays');
+            const currentMonthElement = document.getElementById('currentMonthYear');
+            
+            // Reload events from localStorage (in case new events were created)
+            const currentEvents = getAllEvents();
+            
+            // Update month header
+            currentMonthElement.textContent = `${monthNames[month]} ${year}`;
+            
+            // Clear previous days
+            calendarDays.innerHTML = '';
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+            
+            // Add empty cells for days before the first day of month
+            for (let i = 0; i < startingDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'day empty';
+                calendarDays.appendChild(emptyDay);
+            }
+            
+            // Add days of the month
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day';
+                
+                // Day number
+                const dayNumber = document.createElement('div');
+                dayNumber.className = 'day-number';
+                dayNumber.textContent = day;
+                dayElement.appendChild(dayNumber);
+                
+                // Check if this is today
+                if (day === today.getDate() && 
+                    month === today.getMonth() && 
+                    year === today.getFullYear()) {
+                    dayElement.classList.add('today');
+                }
+                
+                // Check events for this day (only upcoming events)
+                const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayEvents = currentEvents.filter(event => {
+                    const eventDate = new Date(event.date);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    return event.date === dateString && eventDate >= today;
+                });
+                
+                if (dayEvents.length > 0) {
+                    dayElement.classList.add('event-day');
+                    
+                    const eventsList = document.createElement('div');
+                    eventsList.className = 'events-list';
+                    
+                    // Show event count instead of all titles
+                    const eventCount = document.createElement('div');
+                    eventCount.className = 'event-item';
+                    eventCount.textContent = `${dayEvents.length} event${dayEvents.length > 1 ? 's' : ''}`;
+                    eventsList.appendChild(eventCount);
+                    
+                    dayElement.appendChild(eventsList);
+                }
+                
+                // Add click event
+                dayElement.addEventListener('click', () => {
+                    // Remove selected class from previously selected day
+                    document.querySelectorAll('.day.selected').forEach(day => {
+                        day.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to clicked day
+                    dayElement.classList.add('selected');
+                    
+                    // Show events for this day
+                    showEventsForDate(dateString, day, month, year);
+                    selectedDay = { day, month, year, dateString };
+                });
+                
+                calendarDays.appendChild(dayElement);
+            }
+            
+            // If we have a selected day in the current month, highlight it
+            if (selectedDay && selectedDay.month === month && selectedDay.year === year) {
+                const days = calendarDays.querySelectorAll('.day:not(.empty)');
+                if (selectedDay.day <= days.length) {
+                    days[selectedDay.day - 1].classList.add('selected');
+                    showEventsForDate(selectedDay.dateString, selectedDay.day, month, year);
+                }
+            }
+        }
+
+        function showEventsForDate(dateString, day, month, year) {
+            const selectedDateElement = document.getElementById('selectedDate');
+            const eventsContainer = document.getElementById('eventsContainer');
+            
+            // Reload events from localStorage (in case new events were created)
+            const currentEvents = getAllEvents();
+            
+            // Format the date
+            const date = new Date(year, month, day);
+            const formattedDate = date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            selectedDateElement.textContent = formattedDate;
+            
+            // Get events for this date (only upcoming events)
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const dayEvents = currentEvents.filter(event => {
+                const eventDate = new Date(event.date);
+                eventDate.setHours(0, 0, 0, 0);
+                return event.date === dateString && eventDate >= today;
+            });
+            
+            // Clear previous events
+            eventsContainer.innerHTML = '';
+            
+            if (dayEvents.length === 0) {
+                eventsContainer.innerHTML = '<div class="no-events">No events scheduled for this date</div>';
+                return;
+            }
+            
+            // Create event cards
+            dayEvents.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.className = 'event-card';
+                eventCard.innerHTML = `
+                    <div class="event-title">${event.title}</div>
+                    <div class="event-details">
+                        <div class="event-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>${event.time}</span>
+                        </div>
+                        <div class="event-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${event.location}</span>
+                        </div>
+                        <div class="event-detail">
+                            <i class="fas fa-building"></i>
+                            <span>${event.faculty}</span>
+                        </div>
+                        <div class="event-detail">
+                            <i class="fas fa-users"></i>
+                            <span>${event.registrations} registered</span>
+                        </div>
+                    </div>
+                    <div class="event-status status-${event.status}">${event.status.charAt(0).toUpperCase() + event.status.slice(1)}</div>
+                `;
+                eventsContainer.appendChild(eventCard);
+            });
+        }
+
+        // Navigation functions
+        function goToPreviousMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar(currentMonth, currentYear);
+        }
+
+        function goToNextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            generateCalendar(currentMonth, currentYear);
+        }
+
+        // Event listeners for navigation
+        document.getElementById('prevMonth').addEventListener('click', goToPreviousMonth);
+        document.getElementById('nextMonth').addEventListener('click', goToNextMonth);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                goToPreviousMonth();
+            } else if (e.key === 'ArrowRight') {
+                goToNextMonth();
+            }
+        });
+
+        // Initialize calendar
+        generateCalendar(currentMonth, currentYear);
+    </script>
+</body>
+</html>
