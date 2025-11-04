@@ -1,85 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for proper page display -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIMU University - Home</title>
+    
+    <!-- Bootstrap CSS - Makes styling easy and responsive -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons - For beautiful icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Scroll Container Styles -->
+    <style>
+        .scroll-container {
+            overflow: hidden;
+            padding: 20px;
+            position: relative;
+        }
 
-<section>
+        .scroll-wrapper {
+            display: flex;
+            gap: 10px;
+            animation: scroll 20s linear infinite;
+        }
 
-<main class="visitor-page">
+        .scroll-container img {
+            flex: 0 0 auto;
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
 
-  
-  <section class="intro">
-    <h1>Welcome to LIMU University</h1>
-    <p>
-      The Libyan International Medical University (LIMU) is one of the leading private universities in Libya,
-      known for its modern approach to education and strong academic foundation.
-    </p>
-  </section>
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-50% - 5px));
+            }
+        }
 
-  <section>
-    <img src="images/p1.jpg" alt="Error">
-    <img src="images/p2.jpg" alt="Error">
-    <img src="images/p3.jpg" alt="Error">
-    <img src="images/p4.jpg" alt="Error">
-    <img src="images/p5.jpg" alt="Error">
-    <img src="images/p6.jpg" alt="Error">
-  </section>
+        /* Pause animation on hover */
+        .scroll-container:hover .scroll-wrapper {
+            animation-play-state: paused;
+        }
 
-  
-  <section class="history">
-    <h2>About the University</h2>
-    <p>
-      Established in 2007, LIMU has grown to become a center of excellence in higher education,
-      providing a wide range of programs in medicine, pharmacy, dentistry, and information technology.
-      contact us for more information.
-    </p>
-  </section>
-
-  
-  <section class="departments">
-    <h2>Faculties and Specializations</h2>
-    <p>
-      The university offers a variety of disciplines, including Medicine, Dentistry, Pharmacy, 
-      Information Technology, and Business Administration — each designed to prepare students 
-      for both local and international success.
-    </p>
-  </section>
-
-  
-  <section class="teaching-methods">
-    <h2>Our Teaching Methods</h2>
-    <p>
-      LIMU adopts a modern learning approach that emphasizes problem-based learning (PBL),
-      student participation, and the use of digital technologies to enhance the educational experience.
-    </p>
-  </section>
-
- 
-  <section class="volunteer-work">
-    <h2>Community & Volunteer Work</h2>
-    <p>
-      Beyond academics, LIMU takes great pride in its community engagement and volunteer programs. 
-      The university frequently organizes activities such as blood donation campaigns, 
-      Ramadan aid drives, and autism awareness seminars. Through these initiatives, 
-      LIMU seeks to instill in its students a sense of compassion, social responsibility, 
-      and active citizenship — values that extend beyond the classroom and into the heart of society.
-    </p>
-  </section>
-
-  
-  <section class="events">
-    <h2>Events & Activities</h2>
-    <p>
-      LIMU regularly organizes various academic and social events throughout the year, 
-      including scientific conferences, workshops, student competitions, and cultural days. 
-      These events aim to strengthen the students, academic knowledge while enriching their 
-      social and cultural experiences.
-    </p>
-  </section>
-
-  
-  <section class="join-section">
-    <p>
-      <strong>Register with us</strong> and impress us with your participation and creativity!  
-      
-    </p>
-  </section>
-
-</main>
-</section>
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .scroll-container img {
+                width: 250px;
+                height: 167px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Guest Header Component -->
+    <guest-header></guest-header>
+    
+    <!-- Guest Sidebar Component -->
+    <guest-sidebar active="Home"></guest-sidebar>
+    
+    <!-- Main Content Section -->
+    <section class="py-5" style="margin-top: 56px;">
+        <main class="visitor-page container">
+            
+            <!-- Welcome Section -->
+            <section class="intro text-center mb-5">
+                <h1 class="display-4 fw-bold mb-3">
+                    <i class="bi bi-mortarboard me-2"></i>Welcome to LIMU University
+                </h1>
+                <p class="lead">
+                    The Libyan International Medical University (LIMU) is one of the leading private universities in Libya,
+                    known for its modern approach to education and strong academic foundation.
+                </p>
+            </section>
+            
+            <!-- University Images Section -->
+            <section class="mb-5">
+                <div class="scroll-container">
+                    <div class="scroll-wrapper">
+                        <img src="images/p1.jpg" alt="LIMU University">
+                        <img src="images/p2.jpg" alt="LIMU University">
+                        <img src="images/p3.jpg" alt="LIMU University">
+                        <img src="images/p4.jpg" alt="LIMU University">
+                        <img src="images/p5.jpg" alt="LIMU University">
+                        <img src="images/p6.jpg" alt="LIMU University">
+                        <!-- Duplicate images for seamless infinite loop -->
+                        <img src="images/p1.jpg" alt="LIMU University">
+                        <img src="images/p2.jpg" alt="LIMU University">
+                        <img src="images/p3.jpg" alt="LIMU University">
+                        <img src="images/p4.jpg" alt="LIMU University">
+                        <img src="images/p5.jpg" alt="LIMU University">
+                        <img src="images/p6.jpg" alt="LIMU University">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- About University Section -->
+            <section class="history mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h3 fw-bold mb-3">
+                            <i class="bi bi-info-circle me-2 text-primary"></i>About the University
+                        </h2>
+                        <p class="mb-0">
+                            Established in 2007, LIMU has grown to become a center of excellence in higher education,
+                            providing a wide range of programs in medicine, pharmacy, dentistry, and information technology.
+                            Contact us for more information.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Faculties Section -->
+            <section class="departments mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h3 fw-bold mb-3">
+                            <i class="bi bi-book me-2 text-primary"></i>Faculties and Specializations
+                        </h2>
+                        <p class="mb-0">
+                            The university offers a variety of disciplines, including Medicine, Dentistry, Pharmacy, 
+                            Information Technology, and Business Administration — each designed to prepare students 
+                            for both local and international success.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Teaching Methods Section -->
+            <section class="teaching-methods mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h3 fw-bold mb-3">
+                            <i class="bi bi-lightbulb me-2 text-primary"></i>Our Teaching Methods
+                        </h2>
+                        <p class="mb-0">
+                            LIMU adopts a modern learning approach that emphasizes problem-based learning (PBL),
+                            student participation, and the use of digital technologies to enhance the educational experience.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Community & Volunteer Work Section -->
+            <section class="volunteer-work mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h3 fw-bold mb-3">
+                            <i class="bi bi-heart me-2 text-primary"></i>Community & Volunteer Work
+                        </h2>
+                        <p class="mb-0">
+                            Beyond academics, LIMU takes great pride in its community engagement and volunteer programs. 
+                            The university frequently organizes activities such as blood donation campaigns, 
+                            Ramadan aid drives, and autism awareness seminars. Through these initiatives, 
+                            LIMU seeks to instill in its students a sense of compassion, social responsibility, 
+                            and active citizenship — values that extend beyond the classroom and into the heart of society.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Events & Activities Section -->
+            <section class="events mb-5">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h3 fw-bold mb-3">
+                            <i class="bi bi-calendar-event me-2 text-primary"></i>Events & Activities
+                        </h2>
+                        <p class="mb-0">
+                            LIMU regularly organizes various academic and social events throughout the year, 
+                            including scientific conferences, workshops, student competitions, and cultural days. 
+                            These events aim to strengthen the students' academic knowledge while enriching their 
+                            social and cultural experiences.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Join Section -->
+            <section class="join-section">
+                <div class="card shadow-sm bg-primary text-white">
+                    <div class="card-body text-center">
+                        <p class="h5 mb-0">
+                            <i class="bi bi-person-plus me-2"></i>
+                            <strong>Register with us</strong> and impress us with your participation and creativity!
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+    </section>
+    
+    <!-- Guest Footer Component -->
+    <guest-footer></guest-footer>
+    
+    <!-- Bootstrap JavaScript - Required for interactive components -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Header and Footer Scripts -->
+    <script type="module" src="../Layout/guest_user_header.js"></script>
+    <script type="module" src="../Layout/guest_user_footer.js"></script>
+</body>
+</html>

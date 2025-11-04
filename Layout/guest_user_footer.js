@@ -1,85 +1,110 @@
-/* -------------------- Main Footer Component -------------------- */
+/* Footer Component - Creates reusable footer for all pages */
+
 class MainFooter extends HTMLElement {
   async connectedCallback() {
     try {
-      // Load HTML template from external file (relative to JS file location)
+      // Load HTML template from same folder
       const scriptUrl = new URL(import.meta.url);
-      const scriptDir = scriptUrl.href.substring(0, scriptUrl.href.lastIndexOf('/'));
-      const templatePath = `${scriptDir}/guest_user_footer.html`;
+      const scriptFolder = scriptUrl.href.substring(0, scriptUrl.href.lastIndexOf('/'));
+      const templatePath = `${scriptFolder}/guest_user_footer.html`;
       const response = await fetch(templatePath);
-      let htmlTemplate = await response.text();
-
-      // Get current year for copyright
-      const currentYear = new Date().getFullYear();
-
-      // Replace the year placeholder with current year
-      htmlTemplate = htmlTemplate.replace('{{YEAR}}', currentYear);
-
-      // Inject the HTML into the custom element
-      this.innerHTML = htmlTemplate;
-
-      // Wait a moment for DOM to settle, then make footer dynamic and full-width
-      setTimeout(() => {
-        const footer = this.querySelector('footer');
-        
-        if (footer) {
-          // Make footer dynamic - it will naturally flow after content
-          // Span full viewport width using viewport width technique
-          footer.style.position = 'relative';
-          footer.style.width = '100vw';
-          footer.style.left = '50%';
-          footer.style.right = '50%';
-          footer.style.marginLeft = '-50vw';
-          footer.style.marginRight = '-50vw';
-          footer.style.overflowX = 'hidden';
-          footer.style.boxSizing = 'border-box';
-          
-          // Ensure footer appears above sidebar (sidebar z-index is 100)
-          footer.style.zIndex = '150';
-          footer.style.background = '#212529';
-          
-          // Footer is dynamic - it will take the space it needs based on content
-          footer.style.clear = 'both';
-          footer.style.display = 'block';
-          
-          // Ensure the custom element wrapper also has proper positioning
-          this.style.position = 'relative';
-          this.style.width = '100%';
-          this.style.zIndex = '150';
-          this.style.display = 'block';
-          this.style.marginTop = 'auto'; // Push footer to bottom on short pages
-          
-          // Make body flexbox to ensure footer stays at bottom on short pages
-          // This makes footer dynamic - it adjusts based on content length
-          const body = document.body;
-          if (!body.style.display || body.style.display === '') {
-            body.style.display = 'flex';
-            body.style.flexDirection = 'column';
-            body.style.minHeight = '100vh';
-            
-            // Make main content grow to fill available space (pushes footer down)
-            const mainContent = document.querySelector('main');
-            if (mainContent) {
-              // Only add flex-grow if not already set
-              if (!mainContent.style.flexGrow) {
-                mainContent.style.flexGrow = '1';
-              }
-            }
-          }
-        }
-      }, 150);
+      
+      if (!response.ok) throw new Error(`Failed to load footer: ${response.status}`);
+      
+      // Replace {{YEAR}} with current year
+      let htmlContent = await response.text();
+      htmlContent = htmlContent.replace('{{YEAR}}', new Date().getFullYear());
+      
+      this.innerHTML = htmlContent;
+      this.style.display = 'block';
+      this.style.width = '100%';
+      this.style.position = 'relative';
+      
+      // Style footer after a short delay
+      setTimeout(() => this.styleFooter(), 150);
+      
     } catch (error) {
-      // If loading fails, show error message
-      console.error('Error loading footer template:', error);
-      this.innerHTML = `
-        <footer class="bg-dark text-light p-4 text-center">
-          <p class="text-white-50 mb-0">Footer failed to load. Please refresh the page.</p>
-        </footer>
-      `;
+      console.error('Error loading footer:', error);
+      this.style.display = 'block';
+      this.style.width = '100%';
+      this.style.position = 'relative';
+      this.innerHTML = `<footer class="bg-dark text-light p-4 text-center"><p class="text-white-50 mb-0">Footer failed to load: ${error.message}</p></footer>`;
+    }
+  }
+  
+  // Make footer full-width and position it correctly
+  styleFooter() {
+    const footer = this.querySelector('footer');
+    if (!footer) return;
+    
+    // Full-width styling
+    Object.assign(footer.style, {
+      position: 'relative',
+      width: '100vw',
+      left: '50%',
+      right: '50%',
+      marginLeft: '-50vw',
+      marginRight: '-50vw',
+      overflowX: 'hidden',
+      boxSizing: 'border-box',
+      zIndex: '150',
+      background: '#212529',
+      clear: 'both',
+      display: 'block'
+    });
+    
+    // Style wrapper
+    Object.assign(this.style, {
+      position: 'relative',
+      width: '100%',
+      zIndex: '150',
+      display: 'block',
+      marginTop: 'auto'
+    });
+    
+    this.setupPageLayout();
+  }
+  
+  // Set up page layout so footer stays at bottom
+  setupPageLayout() {
+    const body = document.body;
+    if (body.style.display && body.style.display !== '') return;
+    
+    // Make body flexbox to push footer to bottom
+    body.style.display = 'flex';
+    body.style.flexDirection = 'column';
+    body.style.minHeight = '100vh';
+    
+    // Find or create main content area
+    let mainContent = document.querySelector('main') || document.querySelector('section');
+    
+    if (!mainContent) {
+      // Create wrapper for all content before footer
+      const footer = this;
+      const allContent = Array.from(document.body.children).filter(
+        el => el !== footer && el.tagName !== 'SCRIPT'
+      );
+      
+      if (allContent.length > 0) {
+        const wrapper = document.createElement('div');
+        wrapper.style.flexGrow = '1';
+        allContent.forEach(el => wrapper.appendChild(el));
+        document.body.insertBefore(wrapper, footer);
+        mainContent = wrapper;
+      }
+    }
+    
+    // Make main content grow (pushes footer down)
+    if (mainContent && !mainContent.style.flexGrow) {
+      mainContent.style.flexGrow = '1';
     }
   }
 }
 
-// Register the custom element
-customElements.define("main-footer", MainFooter);
-
+// Register with both names: <main-footer> and <guest-footer>
+if (!customElements.get("main-footer")) {
+  customElements.define("main-footer", MainFooter);
+}
+if (!customElements.get("guest-footer")) {
+  customElements.define("guest-footer", class extends MainFooter {});
+}

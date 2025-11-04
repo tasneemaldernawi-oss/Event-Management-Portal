@@ -1,37 +1,102 @@
-
-<section>
-
-<div class="user_login-container">
-  <h2>User Login</h2>
-  <form id="loginForm">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for proper page display -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login - LIMU Events</title>
     
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email"
-           placeholder="University Email"
-           pattern="[a-z0-9._%+-]+@gmail\.com" required>
-
+    <!-- Bootstrap CSS - Makes styling easy and responsive -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password"
-           placeholder="Enter your password" required>
-  </form>
-
-  
-  <a href="Student/home.html" id="dashboardLink" class="dashboard-link">Log in</a>
-  <a href="Admin/admin_login.html">if you'r admin click here!</a>
-</div>
-
-<script>
-  const form = document.getElementById('loginForm');
-  const link = document.getElementById('dashboardLink');
-
-  
-  link.addEventListener('click', function(event) {
-    if (!form.checkValidity()) {
-      event.preventDefault(); 
-      alert("Please fill all fields correctly.");
-    }
-  });
-</script>
-
-</section>
+    <!-- Bootstrap Icons - For beautiful icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <!-- Guest Header Component -->
+    <guest-header></guest-header>
+    
+    <!-- Main Content Section -->
+    <section class="py-5">
+        <!-- Container: Centers content and adds padding -->
+        <div class="container">
+            <!-- Card: Creates a nice box with shadow -->
+            <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+                <div class="card-body p-4">
+                    <!-- Page Title -->
+                    <h2 class="h3 fw-bold text-center mb-4">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>User Login
+                    </h2>
+                    
+                    <!-- Login Form -->
+                    <form id="loginForm">
+                        <!-- Email Input Field -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" 
+                                   class="form-control" 
+                                   id="email" 
+                                   name="email"
+                                   placeholder="University Email"
+                                   pattern="[a-z0-9._%+-]+@gmail\.com" 
+                                   required>
+                        </div>
+                        
+                        <!-- Password Input Field -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input type="password" 
+                                   class="form-control" 
+                                   id="password" 
+                                   name="password"
+                                   placeholder="Enter your password" 
+                                   required>
+                        </div>
+                        
+                        <!-- Login Button -->
+                        <div class="d-grid mb-3">
+                            <a href="Student/home.html" 
+                               id="dashboardLink" 
+                               class="btn btn-primary">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Log in
+                            </a>
+                        </div>
+                        
+                        <!-- Admin Link -->
+                        <div class="text-center">
+                            <a href="Admin/admin_login.html" class="text-decoration-none">
+                                <small>If you're admin, click here!</small>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Guest Footer Component -->
+    <guest-footer></guest-footer>
+    
+    <!-- Bootstrap JavaScript - Required for interactive components -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Header and Footer Scripts -->
+    <script type="module" src="/Layout/guest_user_header.js"></script>
+    <script type="module" src="/Layout/guest_user_footer.js"></script>
+    
+    <!-- Form Validation Script -->
+    <script>
+        // Get form and login link elements
+        const form = document.getElementById('loginForm');
+        const link = document.getElementById('dashboardLink');
+        
+        // Validate form before allowing login
+        link.addEventListener('click', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault(); // Stop navigation
+                alert("Please fill all fields correctly.");
+            }
+        });
+    </script>
+</body>
+</html>
