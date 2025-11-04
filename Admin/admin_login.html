@@ -1,0 +1,34 @@
+<section>
+  <main>
+<div class="Admin_login-container">
+  <h2>Admin Login</h2>
+  <form id="adminLoginForm">
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"
+           placeholder="University Email"
+           pattern="[a-z0-9._%+-]+@limu\.edu\.ly" required>
+
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"
+           placeholder="Enter your password" required>
+  </form>
+
+  
+  <a href="index.html" id="adminDashboardLink" class="dashboard-link">Log in</a>
+</div>
+
+<script>
+  const form = document.getElementById('adminLoginForm');
+  const link = document.getElementById('adminDashboardLink');
+
+  link.addEventListener('click', function(event) {
+    if (!form.checkValidity()) {
+      event.preventDefault(); 
+      alert("Please fill all fields correctly.");
+    }
+  });
+</script>
+</main>
+</section>
