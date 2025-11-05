@@ -1,343 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-    <title>Profile - Event Management Portal</title>
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        main {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        .profile-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .profile-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .profile-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .profile-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .profile-card img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #667eea;
-            margin-bottom: 15px;
-        }
-
-        .profile-card h4 {
-            margin: 10px 0;
-            color: #333;
-        }
-
-        .profile-card h4:last-of-type {
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        .profile-info {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .profile-info span {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #555;
-            font-size: 14px;
-        }
-
-        .profile-info i {
-            color: #667eea;
-            width: 20px;
-        }
-
-        .edit-form {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .edit-form label {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .edit-form input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .edit-form input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            outline: none;
-        }
-
-        .form-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .btn-save {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-save:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-cancel {
-            background: #6c757d;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-cancel:hover {
-            background: #5a6268;
-            transform: translateY(-2px);
-        }
-
-        .settings-section {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-
-        .settings-section h4 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .settings-section p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .setting-item {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }
-
-        .setting-item h5 {
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .setting-item p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .btn-light-custom {
-            background: white;
-            border: 2px solid #667eea;
-            color: #667eea;
-            padding: 8px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-light-custom:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        h2 {
-            color: #333;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+<title>Profile - Event Management Portal</title>
 </head>
 <body>
 <iframe src="header.html" width="100%" height="80" frameborder="0"></iframe>
-    <main>
-        <div class="profile-header">
-            <h2>My Profile</h2>
-            <p>Manage your personal information</p>
-        </div>
+<main>
+    <div class="profile-header">
+        <h2>My Profile</h2>
+        <p>Manage your personal information</p>
+    </div>
 
-        <div class="profile-content">
-            <div class="profile-card">
-                <img src="../images/profile-icon.png" alt="Admin Profile" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjYwIiBmaWxsPSIjNjY3ZWVhIi8+CjxjaXJjbGUgY3g9IjYwIiBjeT0iNDUiIHI9IjIwIiBmaWxsPSJ3aGl0ZSIvPgo8Y2lyY2xlIGN4PSI2MCIgY3k9IjEwMCIgcj0iMzUiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo='">
-                <h4>Admin User</h4>
-                <h4>Administrator</h4>
-                
-                <div class="profile-info">
-                    <span><i class="fa-regular fa-envelope"></i> admin@university.edu</span>
-                    <span><i class="fa-regular fa-phone"></i> +1 234 567 8900</span>
-                    <span><i class="fa-light fa-user-tie"></i> Administration</span>
-                </div>
-            </div>
-
-            <div class="edit-form">
-                <h4>Edit Profile Information</h4>
-                <form action="" method="post">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="fname">Full Name</label>
-                            <input type="text" name="fname" id="fname" placeholder="Admin User" value="Admin User">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" placeholder="admin@university.edu" value="admin@university.edu">
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="phonenumber">Phone Number</label>
-                            <input type="tel" name="phonenumber" id="phonenumber" placeholder="+218 92 713 9985" value="+218 92 713 9985">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="department">Department</label>
-                            <input type="text" name="department" id="department" placeholder="Administration" value="Administration">
-                        </div>
-                    </div>
-                    
-                    <label for="address">Address</label>
-                    <input type="text" name="address" id="address" placeholder="123 University Ave, Benghazi, Libya 12345" value="123 University Ave, Benghazi, Libya 12345">
-                    
-                    <div class="form-buttons">
-                        <button type="button" class="btn btn-save">Save Changes</button>
-                        <button type="button" class="btn btn-cancel">Cancel</button>
-                    </div>
-                </form>
+    <div class="profile-content">
+        <div class="profile-card">
+            <img src="C:\Users\AL-OFQ\Desktop\Event-Management-Portal\image1.png" alt="Admin Profile">
+            <h4>Admin User</h4>
+            <h4>Administrator</h4>
+            <div class="profile-info">
+                <span><i class="fa-regular fa-envelope"></i> admin@university.edu</span>
+                <span><i class="fa-regular fa-phone"></i> +218 92 713 9985</span>
+                <span><i class="fa-light fa-user-tie"></i> Administration</span>
             </div>
         </div>
 
-        <div class="settings-section">
-            <h4>Account Settings</h4>
-            <p>Manage your account preferences</p>
-            
-            <div class="settings-grid">
-                <div class="setting-item">
-                    <h5>Change Password</h5>
-                    <p>Update your password regularly for security</p>
-                    <button class="btn btn-light-custom">Change Password</button>
+        <div class="edit-form">
+            <h4>Edit Profile Information</h4>
+            <form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Full Name</label>
+                        <input type="text" value="Admin User">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Email</label>
+                        <input type="email" value="admin@university.edu">
+                    </div>
                 </div>
-                
-                <div class="setting-item">
-                    <h5>Email Notifications</h5>
-                    <p>Receive updates about events and registrations</p>
-                    <button class="btn btn-light-custom">Configure</button>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Phone Number</label>
+                        <input type="tel" value="+218 92 713 9985">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Department</label>
+                        <input type="text" value="Administration">
+                    </div>
                 </div>
+                <label>Address</label>
+                <input type="text" value="123 University Ave, Benghazi, Libya 12345">
+
+                <div class="form-buttons">
+                    <button type="button" class="btn-save">Save Changes</button>
+                    <button type="button" class="btn-cancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="settings-section">
+        <h4>Account Settings</h4>
+        <p>Manage your account preferences</p>
+        <div class="settings-grid">
+            <div class="setting-item">
+                <h5>Change Password</h5>
+                <p>Update your password regularly for security</p>
+                <button class="btn-light-custom">Change Password</button>
+            </div>
+            <div class="setting-item">
+                <h5>Email Notifications</h5>
+                <p>Receive updates about events and registrations</p>
+                <button class="btn-light-custom">Configure</button>
             </div>
         </div>
-    </main>
-
-    <!-- ADD THE SCRIPT HERE -->
-    <script>
-    // Listen for navigation messages from header iframe
-    window.addEventListener('message', function(event) {
-        if (event.data.type === 'NAVIGATE') {
-            window.location.href = '../' + event.data.url;
-        }
-    });
-
-    // Update header active state
-    function updateHeaderActiveState() {
-        const currentPage = window.location.pathname.split('/').pop();
-        const headerFrame = document.querySelector('iframe[src*="header.html"]');
-        if (headerFrame && headerFrame.contentWindow) {
-            headerFrame.contentWindow.postMessage({
-                type: 'UPDATE_ACTIVE_LINK',
-                activePage: 'pages/' + currentPage
-            }, '*');
-        }
-    }
-
-    // Call on page load
-    document.addEventListener('DOMContentLoaded', updateHeaderActiveState);
-
-    // Add interactive functionality
-    document.querySelector('.btn-save').addEventListener('click', function() {
-        alert('Profile changes saved successfully!');
-    });
-
-    document.querySelector('.btn-cancel').addEventListener('click', function() {
-        if(confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
-            document.getElementById('fname').value = 'Admin User';
-            document.getElementById('email').value = 'admin@university.edu';
-            document.getElementById('phonenumber').value = '+218 92 713 9985';
-            document.getElementById('department').value = 'Administration';
-            document.getElementById('address').value = '123 University Ave, Benghazi, Libya 12345';
-        }
-    });
-    </script>
-</body>
-</html>
+    </div>
+</main>
+<script src="js/myprotofile.js"></script>
+<link rel="stylesheet" href="css/style.css">
 <iframe src="footer.html" width="100%" height="400" frameborder="0"></iframe>
+
