@@ -1,0 +1,84 @@
+/* Responsive Styles for Student Pages */
+/* Mobile First Approach - Bootstrap breakpoint: 992px */
+
+/* Mobile and Tablet (< 992px) */
+@media (max-width: 991.98px) {
+    /* Sidebar mobile styles */
+    #user-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+    
+    #user-sidebar.show {
+        transform: translateX(0);
+        display: block !important;
+    }
+    
+    /* Overlay for mobile sidebar */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 56px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 56px);
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+    }
+    
+    .sidebar-overlay.show {
+        display: block;
+    }
+    
+    /* Remove left margin on mobile for main content */
+    #main-content {
+        margin-left: 0 !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    /* Calendar responsive adjustments */
+    .calendar-container {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+        padding: 10px !important;
+    }
+    
+    /* Smaller padding on mobile */
+    .calendar, .events-panel {
+        padding: 15px !important;
+    }
+    
+    /* Smaller font sizes on mobile */
+    .month-year {
+        font-size: 18px !important;
+    }
+    
+    /* Adjust day grid for mobile */
+    .days-grid {
+        gap: 5px !important;
+    }
+    
+    .day {
+        min-height: 60px !important;
+        padding: 8px !important;
+    }
+    
+    .day-number {
+        font-size: 14px !important;
+    }
+}
+
+/* Desktop/Laptop (≥ 992px) - Keep existing layout */
+@media (min-width: 992px) {
+    #main-content {
+        margin-left: 180px !important;
+    }
+    
+    /* Hide overlay on desktop */
+    .sidebar-overlay {
+        display: none !important;
+    }
+}
+

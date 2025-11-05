@@ -1,0 +1,25 @@
+<!-- User Header HTML Template -->
+<header role="banner" aria-label="User Navbar" class="bg-light border-bottom position-fixed top-0 start-0 w-100" style="z-index: 1000; height: 56px;">
+  <nav class="navbar navbar-expand-lg navbar-light" aria-label="User Navigation (Top)">
+    <div class="container-fluid">
+      <!-- Mobile Menu Toggle Button -->
+      <button class="navbar-toggler d-lg-none me-2" type="button" id="sidebarToggle" aria-label="Toggle sidebar menu" style="border: none; background: none; font-size: 1.5rem;">
+        <i class="bi bi-list"></i>
+      </button>
+      
+      <!-- Brand -->
+      <div class="navbar-brand mb-0">
+        <a href="index.html" class="text-decoration-none" aria-label="U-Events Home">
+          <strong class="text-primary fs-4">U-Events</strong>
+        </a>
+      </div>
+
+      <!-- User Identity -->
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;" aria-hidden="true">{{INITIAL}}</span>
+        <span class="text-dark d-none d-sm-inline" aria-label="Signed in as">{{DISPLAY_ID}}</span>
+      </div>
+    </div>
+  </nav>
+</header>
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for proper page display -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events - LIMU Events</title>
+    
+    <!-- Bootstrap CSS - Makes styling easy and responsive -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons - For beautiful icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <!-- Guest Header Component -->
+    <guest-header></guest-header>
+    
+    <!-- Guest Sidebar Component -->
+    <guest-sidebar active="Upcoming Events"></guest-sidebar>
+    
+    <!-- Main Content Section -->
+    <main class="container py-5" style="margin-top: 56px;">
+        <!-- Card: Creates a nice box with shadow for upcoming events -->
+        <div class="upcoming-events-widget card shadow-sm">
+            <div class="card-body">
+                <!-- Page Title -->
+                <h2 class="h4 fw-bold mb-4">
+                    <i class="bi bi-calendar-event me-2"></i>Upcoming Events
+                </h2>
+                
+                <!-- Today's Events Section -->
+                <div class="today-event mb-4">
+                    <h3 class="h6 text-success fw-bold mb-2">
+                        <i class="bi bi-calendar-check me-1"></i>Today
+                    </h3>
+                    <!-- Alert: Shows today's event in a colored box -->
+                    <div class="event-alert alert alert-success py-3">
+                        <p class="mb-0">
+                            <i class="bi bi-clock me-2"></i>
+                            You have an event today at 10:00 AM — AI Hackathon
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Tomorrow's Events Section -->
+                <div class="tomorrow-event">
+                    <h3 class="h6 text-primary fw-bold mb-2">
+                        <i class="bi bi-calendar-day me-1"></i>Tomorrow
+                    </h3>
+                    <!-- Alert: Shows tomorrow's event in a colored box -->
+                    <div class="event-alert alert alert-primary py-3">
+                        <p class="mb-0">
+                            <i class="bi bi-clock me-2"></i>
+                            You have an event tomorrow at 2:00 PM — Career Fair
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Guest Footer Component -->
+    <guest-footer></guest-footer>
+    
+    <!-- Bootstrap JavaScript - Required for interactive components -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Header and Footer Scripts -->
+    <script type="module" src="../Layout/guest_user_header.js"></script>
+    <script type="module" src="../Layout/guest_user_footer.js"></script>
+</body>
+</html>
