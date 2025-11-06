@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Halls</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f8f8f8;
+    }
+
+    h2 {
+      margin-bottom: 5px;
+    }
+
+    p {
+      margin-top: 0;
+      color: #555;
+    }
+
+    .top-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .top-controls input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .top-controls button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      background: black;
+      color: white;
+      cursor: pointer;
+    }
+
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    th {
+      background: #f0f0f0;
+    }
+
+    tr:hover {
+      background: #f9f9f9;
+    }
+    #addHallBtn:hover{
+        color: #555;
+        background-color: #ccc;
+
+    }
+
+  
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      margin-right: 8px;
+    }
+
+    .icon-edit { color: green; }
+    .icon-delete { color: red; }
+
+    #editBox {
+      display: none;
+      background: white;
+      padding: 20px;
+      border-radius: 6px;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #editBox input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    #editBox button {
+      padding: 10px 15px;
+      margin-right: 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-save { background: green; color: white; width: fit-content;}
+    .btn-delete { background: red; color: white; width: fit-content;}
+    .btn-close { background: gray; color: white; width: fit-content; min-height: 25px;}
+  </style>
+</head>
+<body>
+
+  <h2>Manage Halls</h2>
+  <p>Create, update, or delete halls</p>
+
+
+  <div class="top-controls">
+    <input type="text" id="searchInput" placeholder="Search halls..." onkeyup="filterHalls()">
+    <button id="addHallBtn">+ Add Hall</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Hall Name</th>
+        <th>Capacity</th>
+        <th>Location</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody id="hallBody">
+      <tr class="hall">
+        <td class="hall-name">Main Hall</td>
+        <td class="hall-cap">120</td>
+        <td class="hall-loc">Building A</td>
+        <td class="hall-status">Available</td>
+        <td>
+          <button class="icon-btn icon-edit" style="border: 0px; background-color: white;"><i class="fa-regular fa-pen-to-square"></i></button> <button class="icon-btn icon-delete" style="border: 0px; background-color: white;"> <i class="fa-solid fa-trash"></i></button>
+        </td>
+      </tr>
+
+      <tr class="hall">
+        <td class="hall-name">Room 13</td>
+        <td class="hall-cap">40</td>
+        <td class="hall-loc">Building B</td>
+        <td class="hall-status">Reserved</td>
+        <td>
+        <button class="icon-btn icon-edit" style="border: 0px; background-color: white;"><i class="fa-regular fa-pen-to-square"></i></button> <button class="icon-btn icon-delete" style="border: 0px; background-color: white;"> <i class="fa-solid fa-trash"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+  <div id="editBox">
+    <h3>Edit Hall</h3>
+
+    <label>Hall Name</label>
+    <input type="text" id="editName">
+
+    <label>Capacity</label>
+    <input type="number" id="editCap">
+
+    <label>Location</label>
+    <input type="text" id="editLoc">
+
+    <label>Status</label>
+    <input type="text" id="editStatus">
+
+    <button class="btn-save" id="saveBtn">Save</button>
+    <button class="btn-delete" id="deleteBtn">Delete</button>
+    <button class="btn-close" id="closeBtn">Close</button>
+  </div>
+
+<script>
+  let currentRow = null;
+
+  function filterHalls() {
+    const filter = document.getElementById("searchInput").value.toUpperCase();
+    const rows = document.querySelectorAll("#hallBody tr");
+
+    rows.forEach(row => {
+      const name = row.querySelector(".hall-name").textContent.toUpperCase();
+      row.style.display = name.indexOf(filter) > -1 ? "" : "none";
+    });
+  }
+
+
+  document.querySelectorAll(".icon-edit").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      currentRow = e.target.closest("tr");
+      document.getElementById("editBox").style.display = "block";
+
+      document.getElementById("editName").value = currentRow.querySelector(".hall-name").textContent;
+      document.getElementById("editCap").value = currentRow.querySelector(".hall-cap").textContent;
+      document.getElementById("editLoc").value = currentRow.querySelector(".hall-loc").textContent;
+      document.getElementById("editStatus").value = currentRow.querySelector(".hall-status").textContent;
+    });
+  });
+
+ 
+  document.getElementById("saveBtn").addEventListener("click", () => {
+    if (currentRow) {
+      currentRow.querySelector(".hall-name").textContent = document.getElementById("editName").value;
+      currentRow.querySelector(".hall-cap").textContent = document.getElementById("editCap").value;
+      currentRow.querySelector(".hall-loc").textContent = document.getElementById("editLoc").value;
+      currentRow.querySelector(".hall-status").textContent = document.getElementById("editStatus").value;
+    }
+    document.getElementById("editBox").style.display = "none";
+  });
+
+  
+  document.getElementById("deleteBtn").addEventListener("click", () => {
+    if (currentRow && confirm("Delete this hall?")) {
+      currentRow.remove();
+      document.getElementById("editBox").style.display = "none";
+    }
+  });
+
+
+  document.getElementById("closeBtn").addEventListener("click", () => {
+    document.getElementById("editBox").style.display = "none";
+  });
+
+
+  document.querySelectorAll(".icon-delete").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      if (confirm("Delete this hall?")) {
+        e.target.closest("tr").remove();
+      }
+    });
+  });
+
+
+  document.getElementById("addHallBtn").addEventListener("click", () => {
+    const tbody = document.getElementById("hallBody");
+
+    const row = document.createElement("tr");
+    row.className = "hall";
+
+    row.innerHTML = `
+      <td class="hall-name">New Hall</td>
+      <td class="hall-cap">50</td>
+      <td class="hall-loc">Building C</td>
+      <td class="hall-status">Available</td>
+      <td>
+        <button class="icon-btn icon-edit" style="border: 0px; background-color: white;"><i class="fa-regular fa-pen-to-square"></i></button> <button class="icon-btn icon-delete" style="border: 0px; background-color: white;"> <i class="fa-solid fa-trash"></i></button>
+      </td>
+    `;
+
+    tbody.appendChild(row);
+
+ 
+    row.querySelector(".icon-edit").addEventListener("click", (e) => {
+      currentRow = e.target.closest("tr");
+      document.getElementById("editBox").style.display = "block";
+
+      document.getElementById("editName").value = currentRow.querySelector(".hall-name").textContent;
+      document.getElementById("editCap").value = currentRow.querySelector(".hall-cap").textContent;
+      document.getElementById("editLoc").value = currentRow.querySelector(".hall-loc").textContent;
+      document.getElementById("editStatus").value = currentRow.querySelector(".hall-status").textContent;
+    });
+
+    row.querySelector(".icon-delete").addEventListener("click", (e) => {
+      if (confirm("Delete this hall?")) e.target.closest("tr").remove();
+    });
+  });
+</script>
+
+</body>
+</html>

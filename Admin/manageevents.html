@@ -6,19 +6,119 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <title>Event Mangement Portal</title>
+    <style>
+      body{
+        padding: 20px;
+      }
+      p{
+        color: #555;
+      }
+          .top-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+     .top-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .top-controls input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .top-controls button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      background: black;
+      color: white;
+      cursor: pointer;
+    }
+     
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    th {
+      background: #f0f0f0;
+    }
+
+    tr:hover {
+      background: #f9f9f9;
+    }
+  
+ 
+
+   @media (max-width: 576px) {
+  .top-controls {
+    flex-direction: column;
+  }
+  .top-controls input,
+  .top-controls button {
+    width: 100%;
+  }
+  body {
+    padding: 10px;
+  }
+  table th, table td {
+    white-space: nowrap; 
+  }
+   #editBox {
+    width: 100%;
+    margin: 10px 0;
+  }
+  table{
+    width: 5%;
+  }
+
+  #editBox input,
+  #editBox select {
+    width: 100%;
+  }
+}
+  @media (max-width: 400px) {
+  #editBox {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  #editBox button {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+  
+    </style>
 </head>
 <body>
     <section class="manageevents-section">
         <h2>Manage Events</h2>
         <p>Create, update, or delete events</p>
 
-        <form role="search" id="fomr">
-            <input type="search"  id="query" placeholder="Search events..." onkeyup="myFunction()">
-            <button><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
-            <path d="M16.6725 16.6412L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg></button>
-            <button class="btn btn-secondary " style="background-color: black;">+ Add New Event</button>
-        </form>
+     <div class="top-controls">
+       <input type="text" id="searchInput" placeholder="Search halls..." onkeyup="filterHalls()">
+       <button id="addHallBtn">+ Add Hall</button>
+     </div>
+     <div class="table-responsive">
+
+     
 
         <table>
          <thead>
@@ -97,8 +197,8 @@
    </tr>
    </tbody>
     </table>
+    </div>
 
-      <!-- Hidden Edit Box -->
     <div id="editBox" style="display:none; border:1px solid black; padding:10px; margin:20px;">
     <h5>Edit Event Details</h5>
 
@@ -174,7 +274,7 @@
 
     let currentEvent = null;
 
-    // open edit box
+    
     editButtons.forEach(button => {
       button.addEventListener("click", (e) => {
         currentEvent = e.target.closest(".event");
@@ -189,7 +289,7 @@
        
       });
     });
-        // apply changes
+     
       applyBtn.addEventListener("click", () => {
       if (!currentEvent) return;
       const newEvent= eventinput.value
@@ -211,19 +311,19 @@
       editBox.style.display = "none";
     });
 
-    // close box
+
     closeBtn.addEventListener("click", () => {
       editBox.style.display = "none";
     });
 
-    // delete from inside edit box
+    
     deleteBtnInside.addEventListener("click", () => {
       if (currentEvent && confirm("Are you sure you want to delete this event?")) {
         currentEvent.remove();
         editBox.style.display = "none";
       }
     });
-   // delete button directly from list
+
     deleteButtons.forEach(button => {
       button.addEventListener("click", (e) => {
         const eventToDelete = e.target.closest(".event");
@@ -235,14 +335,14 @@
 
 
  function myFunction() {
-  // Declare variables
+
   var input, filter, a, i, tr, txtValue;
   input = document.getElementById('query');
   filter = input.value.toUpperCase();
   tbody = document.getElementById("myTbody");
   tr = tbody.getElementsByTagName('tr');
 
-  // Loop through all list items, and hide those who don't match the search query
+ 
   for (i = 0; i < tr.length; i++) {
     var td = tr[i].getElementsByTagName("td")[0];
     
@@ -257,9 +357,9 @@
 }
 }
 document.querySelector('.btn-secondary').addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault(); 
     
-    // Create a new event row with default values
+  
     const newRow = document.createElement('tr');
     newRow.className = 'event';
     newRow.innerHTML = `
@@ -280,10 +380,10 @@ document.querySelector('.btn-secondary').addEventListener('click', function(e) {
         </td>
     `;
     
-    // Add it to the table
+
     document.getElementById('myTbody').appendChild(newRow);
     
-    // Add event listeners to the new buttons
+
     const newEditBtn = newRow.querySelector('.editBtn');
     const newDeleteBtn = newRow.querySelector('.deleteBtn');
     
@@ -306,7 +406,6 @@ document.querySelector('.btn-secondary').addEventListener('click', function(e) {
     });
 });
 </script>
-
 
     </section>
     
