@@ -312,6 +312,37 @@ function setupAllEventsPage() {
             registrations: '40/40',
             status: 'upcoming',
             description: 'Learn essential leadership skills from industry experts and successful entrepreneurs.'
+        },
+        // Past Events
+        {
+            title: 'Science Expo 2024',
+            date: '2024-09-15',
+            time: '11:00 AM',
+            location: 'Convention Center',
+            faculty: 'Science',
+            registrations: '120/120',
+            status: 'past',
+            description: 'Annual science exhibition showcasing innovative projects from students across all science departments. Featured presentations on renewable energy, biotechnology, and environmental science.'
+        },
+        {
+            title: 'Cultural Day Festival',
+            date: '2024-08-20',
+            time: '02:00 PM',
+            location: 'Main Campus',
+            faculty: 'Arts & Humanities',
+            registrations: '200/200',
+            status: 'past',
+            description: 'A vibrant celebration of diverse cultures with food, music, dance performances, and art exhibitions. Students from different backgrounds shared their traditions and heritage.'
+        },
+        {
+            title: 'Tech Innovation Summit',
+            date: '2024-07-10',
+            time: '09:00 AM',
+            location: 'Tech Building',
+            faculty: 'Information Technology',
+            registrations: '150/150',
+            status: 'past',
+            description: 'Annual technology summit featuring cutting-edge innovations, startup pitches, and keynote speeches from industry leaders. Focused on AI, blockchain, and cybersecurity.'
         }
     ];
 
@@ -349,24 +380,31 @@ function setupAllEventsPage() {
         events.forEach(event => {
             const status = event.status || getEventStatus(event.date);
             const statusClass = status === 'upcoming' ? 'success' : 'secondary';
-            const statusText = status === 'upcoming' ? 'Upcoming' : 'Past';
+            const statusText = status === 'upcoming' ? 'Upcoming' : 'Past Event';
+            const isPast = status === 'past';
             
             const card = document.createElement('div');
-            card.className = 'col-md-6 col-lg-4';
+            card.className = isPast ? 'col-md-6 col-lg-4 mb-4' : 'col-md-6 col-lg-4 mb-4';
             card.innerHTML = `
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h5 class="card-title mb-0">${event.title}</h5>
-                            <span class="badge bg-${statusClass}">${statusText}</span>
+                <div class="card h-100 shadow-sm ${isPast ? 'border-secondary' : ''}">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title mb-0 fw-bold">${event.title}</h5>
+                            <span class="badge bg-${statusClass} fs-6 px-3 py-2">${statusText}</span>
                         </div>
-                        ${event.description ? `<p class="card-text text-muted small">${event.description}</p>` : ''}
-                        <div class="mt-3">
-                            <p class="mb-1"><i class="bi bi-calendar3 me-2"></i><span class="event-date">${formatDate(event.date)}</span></p>
-                            <p class="mb-1"><i class="bi bi-clock me-2"></i><span class="event-time">${event.time}</span></p>
-                            <p class="mb-1"><i class="bi bi-geo-alt me-2"></i><span class="event-location">${event.location}</span></p>
-                            <p class="mb-1"><i class="bi bi-building me-2"></i><span class="event-faculty">${event.faculty}</span></p>
-                            <p class="mb-0"><i class="bi bi-people me-2"></i><span class="event-registrations">${event.registrations || '0/100'} registered</span></p>
+                        ${event.description ? `<p class="card-text text-muted mb-4 event-description">${event.description}</p>` : ''}
+                        <div class="event-details">
+                            <div class="mb-3 p-2 bg-light rounded">
+                                <p class="mb-2"><i class="bi bi-calendar3 me-2 text-primary"></i><strong>Date:</strong> <span class="event-date">${formatDate(event.date)}</span></p>
+                                <p class="mb-0"><i class="bi bi-clock me-2 text-primary"></i><strong>Time:</strong> <span class="event-time">${event.time}</span></p>
+                            </div>
+                            <div class="mb-3 p-2 bg-light rounded">
+                                <p class="mb-2"><i class="bi bi-geo-alt me-2 text-danger"></i><strong>Location:</strong> <span class="event-location">${event.location}</span></p>
+                                <p class="mb-0"><i class="bi bi-building me-2 text-info"></i><strong>Faculty:</strong> <span class="event-faculty">${event.faculty}</span></p>
+                            </div>
+                            <div class="p-2 bg-light rounded">
+                                <p class="mb-0"><i class="bi bi-people me-2 text-success"></i><strong>Attendance:</strong> <span class="event-registrations">${event.registrations || '0/100'} registered</span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -375,40 +413,40 @@ function setupAllEventsPage() {
         });
     }
 
-    // Filter and search events
+    // Filter events
     function filterEvents() {
-        const searchInput = document.getElementById('searchInput');
         const filterSelect = document.getElementById('filterSelect');
         
-        if (!searchInput || !filterSelect) return;
+        if (!filterSelect) return;
         
-        const searchTerm = searchInput.value.toLowerCase();
         const filterType = filterSelect.value;
         const storedEvents = getEventsFromStorage();
         const allEvents = [...dashboardEvents, ...storedEvents];
         
         let filtered = allEvents.filter(event => {
-            const matchesSearch = event.title.toLowerCase().includes(searchTerm) ||
-                                event.faculty.toLowerCase().includes(searchTerm) ||
-                                event.location.toLowerCase().includes(searchTerm);
             const status = event.status || getEventStatus(event.date);
             const matchesFilter = filterType === 'all' || status === filterType;
-            return matchesSearch && matchesFilter;
+            return matchesFilter;
         });
         
-        // Sort by date
-        filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+        // Sort by date (past events first if showing past, newest first)
+        filtered.sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            if (filterType === 'past') {
+                return dateB - dateA; // Most recent past events first
+            }
+            return dateA - dateB; // Upcoming events chronologically
+        });
         
         renderEvents(filtered);
     }
 
     // Initialize
-    const searchInput = document.getElementById('searchInput');
     const filterSelect = document.getElementById('filterSelect');
     
-    if (searchInput && filterSelect) {
+    if (filterSelect) {
         filterEvents();
-        searchInput.addEventListener('input', filterEvents);
         filterSelect.addEventListener('change', filterEvents);
     }
 }

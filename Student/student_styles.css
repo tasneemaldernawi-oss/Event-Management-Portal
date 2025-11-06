@@ -254,3 +254,30 @@ body {
     color: white; 
 }
 
+/* Main Content Layout */
+#main-content {
+    margin-left: 180px;
+    margin-top: 56px;
+}
+
+/* Calendar specific padding */
+.calendar-main-content {
+    margin-left: 180px;
+    margin-top: 56px;
+    padding: 20px;
+}
+
+/* Logout page styles */
+.logout-content {
+    margin-top: 56px;
+}
+
+.logout-box {
+    max-width: 520px;
+}
+
+/* Event description line height */
+.event-description {
+    line-height: 1.6;
+}
+

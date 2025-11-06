@@ -13,17 +13,15 @@
 <user-header></user-header> 
 <user-sidebar active="events"></user-sidebar>
 
-    <main class="container py-4" style="margin-left: 180px; margin-top: 56px;" id="main-content">
-        <h1 class="h2 fw-bold mb-4">All Events</h1>
+    <main class="container py-5" id="main-content">
+        <h1 class="h2 fw-bold mb-4"><i class="bi bi-calendar-event me-2"></i>All Events</h1>
         
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <input type="text" class="form-control" id="searchInput" placeholder="Search events...">
-            </div>
-            <div class="col-md-6">
-                <select class="form-select" id="filterSelect">
+        <div class="row mb-4">
+            <div class="col-md-4 mb-3">
+                <label for="filterSelect" class="form-label fw-semibold">Filter by Status</label>
+                <select class="form-select form-select-lg" id="filterSelect">
                     <option value="all">All Events</option>
-                    <option value="upcoming">Upcoming</option>
+                    <option value="upcoming">Upcoming Events</option>
                     <option value="past">Past Events</option>
                 </select>
             </div>
