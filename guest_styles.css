@@ -1,0 +1,45 @@
+/* Guest Pages Styles - Shared CSS for guest pages */
+
+/* Scroll Container Styles for Image Gallery */
+.scroll-container {
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+}
+
+.scroll-wrapper {
+    display: flex;
+    gap: 10px;
+    animation: scroll 20s linear infinite;
+}
+
+.scroll-container img {
+    flex: 0 0 auto;
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-50% - 5px));
+    }
+}
+
+/* Pause animation on hover */
+.scroll-container:hover .scroll-wrapper {
+    animation-play-state: paused;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .scroll-container img {
+        width: 250px;
+        height: 167px;
+    }
+}
+

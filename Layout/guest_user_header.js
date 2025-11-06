@@ -53,14 +53,17 @@ customElements.define("guest-header", GuestHeader);
 class UserHeader extends HTMLElement {
   async connectedCallback() {
     try {
-      const userName = (this.getAttribute("user") || "").trim();
-      const userEmail = (this.getAttribute("email") || "").trim();
-      const displayName = userName || userEmail || "User";
+      // Try to get user name from attribute first
+      let userName = (this.getAttribute("user") || "").trim();
+      let userEmail = (this.getAttribute("email") || "").trim();
       
-      // Get first letter for avatar
-      let firstLetter = "U";
-      if (userName) firstLetter = userName.trim().charAt(0).toUpperCase();
-      else if (userEmail) firstLetter = userEmail.split("@")[0].trim().charAt(0).toUpperCase();
+      // Get user name from window.userData if available
+      if (!userName && window.userData && window.userData.name) {
+        userName = window.userData.name;
+      }
+      
+      const displayName = userName || userEmail || "User";
+      const firstLetter = userName ? userName.trim().charAt(0).toUpperCase() : "U";
       
       // Load and customize template
       const scriptUrl = new URL(import.meta.url);
@@ -70,9 +73,23 @@ class UserHeader extends HTMLElement {
       
       this.innerHTML = htmlContent;
       this.fixAllLinks();
+      
+      // Update from userData after page loads
+      setTimeout(() => this.updateFromUserData(), 500);
     } catch (error) {
       console.error('Error loading user header:', error);
       this.innerHTML = `<header class="bg-light p-3 text-center"><p class="mb-0 text-danger">User header failed to load.</p></header>`;
+    }
+  }
+  
+  updateFromUserData() {
+    if (window.userData && window.userData.name) {
+      const name = window.userData.name;
+      const firstLetter = name.trim().charAt(0).toUpperCase();
+      const initialSpan = this.querySelector('.badge.bg-primary');
+      const nameSpan = this.querySelector('span[aria-label="Signed in as"]');
+      if (initialSpan) initialSpan.textContent = firstLetter;
+      if (nameSpan) nameSpan.textContent = name;
     }
   }
   

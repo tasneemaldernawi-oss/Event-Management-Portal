@@ -12,50 +12,8 @@
     <!-- Bootstrap Icons - For beautiful icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
-    <!-- Scroll Container Styles -->
-    <style>
-        .scroll-container {
-            overflow: hidden;
-            padding: 20px;
-            position: relative;
-        }
-
-        .scroll-wrapper {
-            display: flex;
-            gap: 10px;
-            animation: scroll 20s linear infinite;
-        }
-
-        .scroll-container img {
-            flex: 0 0 auto;
-            width: 300px;
-            height: 200px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(calc(-50% - 5px));
-            }
-        }
-
-        /* Pause animation on hover */
-        .scroll-container:hover .scroll-wrapper {
-            animation-play-state: paused;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .scroll-container img {
-                width: 250px;
-                height: 167px;
-            }
-        }
-    </style>
+    <!-- Guest Pages Styles -->
+    <link rel="stylesheet" href="guest_styles.css">
 </head>
 <body>
     <!-- Guest Header Component -->

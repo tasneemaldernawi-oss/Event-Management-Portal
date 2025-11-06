@@ -10,6 +10,9 @@ let userData = {
     eventsCreated: 3
 };
 
+// Make userData globally accessible for header component
+window.userData = userData;
+
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded');
@@ -26,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (window.location.pathname.includes('calendar.html')) {
         setupCalendarPage();
+    }
+    if (window.location.pathname.includes('allevents.html')) {
+        setupAllEventsPage();
     }
     
     // Setup navigation
@@ -71,10 +77,16 @@ function setupProfilePage() {
             if (newEmail) userData.email = newEmail;
             if (newFaculty) userData.faculty = newFaculty;
             
+            // Update global reference
+            window.userData = userData;
+            
             // Update display
             document.getElementById('display-name').textContent = userData.name;
             document.getElementById('display-email').textContent = userData.email;
             document.getElementById('display-faculty').textContent = userData.faculty;
+            
+            // Update header
+            updateUserHeader();
             
             alert('Profile updated!');
         });
@@ -257,6 +269,158 @@ function setupCalendarPage() {
     }
 }
 
+// All Events Page
+function setupAllEventsPage() {
+    // Hardcoded events from dashboard.html
+    const dashboardEvents = [
+        {
+            title: 'AI Hackathon 2025',
+            date: '2025-10-21',
+            time: '10:00 AM',
+            location: 'Gaming Hall',
+            faculty: 'Artificial Intelligence',
+            registrations: '45/50',
+            status: 'upcoming',
+            description: 'Join us for an exciting 48-hour AI hackathon where students collaborate to build innovative AI solutions.'
+        },
+        {
+            title: 'Engineering Career Fair',
+            date: '2025-10-25',
+            time: '09:00 AM',
+            location: 'Main Hall',
+            faculty: 'Engineering',
+            registrations: '100/150',
+            status: 'upcoming',
+            description: 'Meet top employers and explore career opportunities in engineering fields.'
+        },
+        {
+            title: 'Research Symposium',
+            date: '2025-10-26',
+            time: '02:00 PM',
+            location: 'Room 13',
+            faculty: 'Research & Development',
+            registrations: '80/100',
+            status: 'upcoming',
+            description: 'Showcase of undergraduate and graduate research projects across all faculties.'
+        },
+        {
+            title: 'Business Leadership Workshop',
+            date: '2025-10-28',
+            time: '01:00 PM',
+            location: 'Room 26',
+            faculty: 'Business Administration',
+            registrations: '40/40',
+            status: 'upcoming',
+            description: 'Learn essential leadership skills from industry experts and successful entrepreneurs.'
+        }
+    ];
+
+    // Format date for display
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    // Determine if event is past or upcoming
+    function getEventStatus(dateString) {
+        const eventDate = new Date(dateString);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        eventDate.setHours(0, 0, 0, 0);
+        return eventDate >= today ? 'upcoming' : 'past';
+    }
+
+    // Render events
+    function renderEvents(events) {
+        const container = document.getElementById('eventsContainer');
+        const noEvents = document.getElementById('noEvents');
+        
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        if (events.length === 0) {
+            if (noEvents) noEvents.classList.remove('d-none');
+            return;
+        }
+        
+        if (noEvents) noEvents.classList.add('d-none');
+        
+        events.forEach(event => {
+            const status = event.status || getEventStatus(event.date);
+            const statusClass = status === 'upcoming' ? 'success' : 'secondary';
+            const statusText = status === 'upcoming' ? 'Upcoming' : 'Past';
+            
+            const card = document.createElement('div');
+            card.className = 'col-md-6 col-lg-4';
+            card.innerHTML = `
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title mb-0">${event.title}</h5>
+                            <span class="badge bg-${statusClass}">${statusText}</span>
+                        </div>
+                        ${event.description ? `<p class="card-text text-muted small">${event.description}</p>` : ''}
+                        <div class="mt-3">
+                            <p class="mb-1"><i class="bi bi-calendar3 me-2"></i><span class="event-date">${formatDate(event.date)}</span></p>
+                            <p class="mb-1"><i class="bi bi-clock me-2"></i><span class="event-time">${event.time}</span></p>
+                            <p class="mb-1"><i class="bi bi-geo-alt me-2"></i><span class="event-location">${event.location}</span></p>
+                            <p class="mb-1"><i class="bi bi-building me-2"></i><span class="event-faculty">${event.faculty}</span></p>
+                            <p class="mb-0"><i class="bi bi-people me-2"></i><span class="event-registrations">${event.registrations || '0/100'} registered</span></p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // Filter and search events
+    function filterEvents() {
+        const searchInput = document.getElementById('searchInput');
+        const filterSelect = document.getElementById('filterSelect');
+        
+        if (!searchInput || !filterSelect) return;
+        
+        const searchTerm = searchInput.value.toLowerCase();
+        const filterType = filterSelect.value;
+        const storedEvents = getEventsFromStorage();
+        const allEvents = [...dashboardEvents, ...storedEvents];
+        
+        let filtered = allEvents.filter(event => {
+            const matchesSearch = event.title.toLowerCase().includes(searchTerm) ||
+                                event.faculty.toLowerCase().includes(searchTerm) ||
+                                event.location.toLowerCase().includes(searchTerm);
+            const status = event.status || getEventStatus(event.date);
+            const matchesFilter = filterType === 'all' || status === filterType;
+            return matchesSearch && matchesFilter;
+        });
+        
+        // Sort by date
+        filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        renderEvents(filtered);
+    }
+
+    // Initialize
+    const searchInput = document.getElementById('searchInput');
+    const filterSelect = document.getElementById('filterSelect');
+    
+    if (searchInput && filterSelect) {
+        filterEvents();
+        searchInput.addEventListener('input', filterEvents);
+        filterSelect.addEventListener('change', filterEvents);
+    }
+}
+
+// Update user header
+function updateUserHeader() {
+    const header = document.querySelector('user-header');
+    if (header && header.updateFromUserData) {
+        header.updateFromUserData();
+    }
+}
+
 // Navigation
 function setupNavigation() {
     // Logout confirmation
@@ -270,4 +434,7 @@ function setupNavigation() {
             }
         });
     });
+    
+    // Update header on page load
+    setTimeout(updateUserHeader, 500);
 }
