@@ -20,7 +20,7 @@
     border-radius: 10px;
     object-fit: cover;
 }
-
+/* keyframes عرّفلي كيف يتغسر شكل العنصر مع مرور الوقت أثناء الأنيميشن  */
 @keyframes scroll {
     0% {
         transform: translateX(0);
@@ -32,10 +32,10 @@
 
 /* Pause animation on hover */
 .scroll-container:hover .scroll-wrapper {
-    animation-play-state: paused;
+    animation-play-state: paused;  /* running*/ 
 }
 
-/* Responsive adjustments */
+/* responsive in mobile and tablet */
 @media (max-width: 768px) {
     .scroll-container img {
         width: 250px;
