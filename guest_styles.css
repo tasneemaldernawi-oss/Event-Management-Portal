@@ -10,15 +10,18 @@ body .scroll-container {
     position: relative !important;
     width: 100% !important;
     max-width: 100% !important;
+    white-space: nowrap !important;
 }
 
 section .scroll-wrapper,
 main .scroll-wrapper,
 body .scroll-wrapper {
     display: flex !important;
+    flex-wrap: nowrap !important;
     gap: 10px !important;
     animation: scroll 20s linear infinite !important;
-    width: max-content !important;
+    width: fit-content !important;
+    will-change: transform !important;
 }
 
 section .scroll-container img,
@@ -36,10 +39,10 @@ body .scroll-container img {
 /* keyframes عرّفلي كيف يتغسر شكل العنصر مع مرور الوقت أثناء الأنيميشن  */
 @keyframes scroll {
     0% {
-        transform: translateX(0) !important;
+        transform: translateX(0);
     }
     100% {
-        transform: translateX(calc(-50% - 5px)) !important;
+        transform: translateX(calc(-50% - 5px));
     }
 }
 

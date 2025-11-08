@@ -400,9 +400,13 @@ document.addEventListener("DOMContentLoaded", function(){
   });
 
 
+  // Logout functionality: Redirects to guest.html when user clicks logout
   document.getElementById('logoutBtn')?.addEventListener('click', function(e){
     e.preventDefault();
-    if(confirm('Are you sure you want to logout?')) alert('Logging out...');
+    if(confirm('Are you sure you want to logout?')) {
+      // Redirect to guest.html (go up two levels from Layout/test/ to root)
+      window.location.href = '../../guest.html';
+    }
   });
   document.addEventListener('DOMContentLoaded', initDropdowns);
 

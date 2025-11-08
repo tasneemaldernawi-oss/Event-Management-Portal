@@ -572,6 +572,8 @@
                 .then(res => res.text())
                 .then(data => document.getElementById("footer").innerHTML = data);
         });
+        
+        // Logout is now handled directly in HTML with href="../../guest.html" and onclick confirmation
 
         // Listen for navigation messages from header iframe
         window.addEventListener('message', function(event) {

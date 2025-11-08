@@ -401,6 +401,8 @@
                 .then(res => res.text())
                 .then(data => document.getElementById("footer").innerHTML = data);
         });
+        
+        // Logout is now handled directly in HTML with href="../../guest.html" and onclick confirmation
 document.addEventListener("DOMContentLoaded", function(){
   const currentPage = window.location.pathname.split('/').pop() || 'managmentevent.html';
   document.querySelectorAll(".nav-link").forEach(link => {
@@ -408,10 +410,7 @@ document.addEventListener("DOMContentLoaded", function(){
   });
 
 
-  document.getElementById('logoutBtn')?.addEventListener('click', function(e){
-    e.preventDefault();
-    if(confirm('Are you sure you want to logout?')) alert('Logging out...');
-  });
+  // Logout is now handled directly in HTML with href="../../guest.html" and onclick confirmation
   
 });
     
@@ -674,10 +673,7 @@ document.addEventListener("DOMContentLoaded", function(){
   });
 
 
-  document.getElementById('logoutBtn')?.addEventListener('click', function(e){
-    e.preventDefault();
-    if(confirm('Are you sure you want to logout?')) alert('Logging out...');
-  });
+  // Logout is now handled directly in HTML with href="../../guest.html" and onclick confirmation
   
 });
 </script>
