@@ -286,11 +286,16 @@
             }
         });
 
-        // Form submission
+        // Form submission: Redirects to admin dashboard after successful login
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Add your login logic here
-            alert('Login functionality would be implemented here!');
+            // Check if form is valid before redirecting
+            if (this.checkValidity()) {
+                // Redirect to admin dashboard in test folder
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Please fill all fields correctly.');
+            }
         });
     </script>
 </body>
