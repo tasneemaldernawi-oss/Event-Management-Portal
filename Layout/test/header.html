@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Header Simple</title>
+
+
+<!-- Bootstrap & Font Awesome -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+<style>
+body { padding-top:100px; font-family:'Segoe UI',sans-serif; background:#f8f9fa; }
+/* Enhanced Navbar Styles */
+.navbar-custom {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 1rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-custom.scrolled {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(30px);
+  padding: 0.3rem 1rem;
+}
+
+/* Enhanced Brand Logo */
+.logo-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-main {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+.logo-pulse {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 16px;
+  opacity: 0.6;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 0.3; }
+}
+
+.brand-content {
+  line-height: 1.2;
+}
+
+.brand-title {
+  font-weight: 800;
+  font-size: 1.4rem;
+  background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.brand-subtitle {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+
+
+.nav-item-custom {
+  position: relgative;
+  padding: 0.75rem 1.25rem !important;
+  border-radius: 10px;
+  margin: 0 0.25rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: transparent;
+  border: none;
+}
+
+.nav-item-custom:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+}
+
+.nav-item-custom.active {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+}
+
+.nav-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.nav-item-custom:hover .nav-icon {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.1);
+}
+
+.nav-item-custom.active .nav-icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nav-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.nav-underline {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-item-custom:hover .nav-underline {
+  width: 80%;
+}
+
+.nav-item-custom.active .nav-underline {
+  width: 100%;
+}
+
+/* Enhanced Notifications */
+.btn-notification {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #e2e8f0;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-notification:hover {
+  background: rgba(234, 234, 237, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+}
+
+.notification-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 2px solid #fafafb;
+}
+
+.notification-indicator.pulse {
+  animation: notificationPulse 2s infinite;
+}
+
+@keyframes notificationPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.7; }
+}
+
+.notification-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Enhanced Profile Section */
+.btn-profile {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+  color: #e2e8f0;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-profile:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+}
+
+.profile-avatar {
+  position: relative;
+}
+
+.avatar-image {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.online-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  background: #10b981;
+  border: 2px solid #1e293b;
+  border-radius: 50%;
+}
+
+.profile-info {
+  text-align: left;
+  line-height: 1.2;
+}
+
+.profile-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+}
+
+.profile-role {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.profile-arrow {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  transition: transform 0.3s ease;
+}
+
+.btn-profile[aria-expanded="true"] .profile-arrow {
+  transform: rotate(180deg);
+}
+
+/* Enhanced Dropdowns */
+.notification-dropdown,
+.profile-dropdown {
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  min-width: 350px;
+  animation: dropdownSlide 0.3s ease;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(40px);
+    border-radius: 0 0 20px 20px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  
+  .nav-main {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .navbar-actions {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+    justify-content: space-between;
+  }
+  
+  .notification-dropdown,
+.profile-dropdown {
+    position: fixed !important;
+    top: 80px !important;
+    right: 20px !important;
+    left: auto !important;
+    transform: none !important;
+    width: 380px !important;
+    max-width: 90vw !important;
+    background: rgba(30, 41, 59, 0.98) !important;
+    backdrop-filter: blur(40px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5) !important;
+    padding: 0 !important;
+    overflow: hidden;
+    animation: dropdownSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 9999 !important;
+}
+
+/* موقع خاص لبروفايل دروبداون */
+.profile-dropdown {
+    right: 20px !important;
+    width: 320px !important;
+}
+
+/* موقع خاص للإشعارات دروبداون */
+.notification-dropdown {
+    right: 90px !important; /* بعيد عن البروفايل */
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-15px) scale(0.95) !important;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1) !important;
+    }
+}
+
+/* تحسين الهيدر داخل القوائم */
+.notification-header,
+.profile-header {
+    background: #f9f8f80d;
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid rgba(247, 243, 243, 0.1);
+}
+
+.notification-header h6,
+.profile-header .profile-name {
+    color: white;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* تحسين العناصر داخل القوائم */
+.notification-item,
+.dropdown-item {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(244, 236, 236, 0.05);
+    transition: all 0.3s ease;
+    color: #e2e8f0;
+}
+
+.notification-item:hover,
+.dropdown-item:hover {
+    background: rgba(28, 28, 28, 0.05);
+    color: white;
+}
+
+.notification-item:last-child,
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+/* تحسين الأيقونات */
+.notification-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+
+.notification-icon.success { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+.notification-icon.info { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+.notification-icon.warning { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+
+/* تحسين responsive */
+@media (max-width: 768px) {
+    .notification-dropdown,
+    .profile-dropdown {
+        right: 5% !important;
+        left: 5% !important;
+        width: 90% !important;
+        max-width: none !important;
+    }
+    
+    .notification-dropdown {
+        right: 5% !important;
+    }
+}
+
+/* تأثير عند الظهور */
+.dropdown-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(244, 242, 242, 0.3);
+    backdrop-filter: blur(5px);
+    z-index: 9998;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+}
+
+/* Animated Toggler */
+.animated-toggler {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.animated-toggler:hover {
+  border-color: rgba(99, 102, 241, 0.5);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.toggler-bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: #235da9;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.animated-toggler[aria-expanded="true"] .toggler-bar:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.animated-toggler[aria-expanded="true"] .toggler-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.animated-toggler[aria-expanded="true"] .toggler-bar:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Active Navigation Indicator */
+.nav-active-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #6366f1);
+  background-size: 200% 100%;
+  animation: gradientFlow 3s ease infinite;
+  opacity: 0.7;
+}
+
+@keyframes gradientFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Scroll Effect */
+.navbar-custom {
+  transition: all 0.4s ease;
+}
+
+/* Search Button */
+.btn-search {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #e2e8f0;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-search:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+}
+/* بس زد هذا الكود في الآخر */
+.notification-dropdown {
+    background: white !important;
+    color: black !important;
+}
+
+.notification-dropdown * {
+    color: black !important;
+}
+
+.notification-header {
+    background: #6366f1 !important;
+    color: white !important;
+}
+
+.notification-header * {
+    color: white !important;
+}
+
+.notification-item {
+    background: white !important;
+    border-bottom: 1px solid #eee !important;
+}
+
+.notification-title {
+    color: #1e293b !important;
+    font-weight: bold !important;
+}
+
+.notification-message {
+    color: #64748b !important;
+}
+
+.notification-time {
+    color: #94a3b8 !important;
+}
+
+.badge {
+    background: #8b5cf6 !important;
+    color: white !important;
+}
+</style>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+  <div class="container-fluid">
+    <!-- Brand Logo with Enhanced Design -->
+    <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+      <div class="logo-container me-3">
+        <div class="logo-main">
+          <i class="fas fa-university"></i>
+        </div>
+        <div class="logo-pulse"></div>
+      </div>
+      <div class="brand-content">
+        <div class="brand-title">University Portal</div>
+        <div class="brand-subtitle">Event Management System</div>
+      </div>
+    </a>
+
+    <!-- Animated Mobile Toggler -->
+    <button class="navbar-toggler animated-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarContent" aria-controls="navbarContent" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="toggler-bar"></span>
+      <span class="toggler-bar"></span>
+      <span class="toggler-bar"></span>
+    </button>
+
+    <!-- Navigation Content -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <!-- Main Navigation -->
+      <ul class="navbar-nav nav-main me-auto">
+        <li class="nav-item">
+          <a class="nav-link nav-item-custom" href="dashboard.html">
+            <div class="nav-icon">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <span class="nav-label">Dashboard</span>
+            <div class="nav-underline"></div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-item-custom" href="calender.html">
+            <div class="nav-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <span class="nav-label">Calendar</span>
+            <div class="nav-underline"></div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-item-custom" href="managmentevent.html">
+            <div class="nav-icon">
+              <i class="fas fa-edit"></i>
+            </div>
+            <span class="nav-label">Manage Events</span>
+            <div class="nav-underline"></div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-item-custom" href="myprotofolio.html">
+            <div class="nav-icon">
+              <i class="fas fa-user-shield"></i>
+            </div>
+            <span class="nav-label">Profile</span>
+            <div class="nav-underline"></div>
+          </a>
+        </li>
+      </ul>
+      <li class="nav-item">
+          <a class="nav-link nav-item-custom" href="halllmanaging.html">
+            <div class="nav-icon">
+              <i class="fas fa-edit"></i>
+            </div>
+            <span class="nav-label">Manage Halls</span>
+            <div class="nav-underline"></div>
+          </a>
+        </li>
+
+      <!-- Right Side Actions -->
+      <div class="navbar-actions d-flex align-items-center">
+        <!-- Search Button -->
+        <div class="nav-search me-3">
+          <button class="btn-search" type="button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+
+        <!-- Notifications with Enhanced Design -->
+        <div class="nav-notifications me-3">
+          <div class="notification-wrapper dropdown">
+            <button class="btn-notification dropdown-toggle" type="button" 
+                    data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-bell"></i>
+              <span class="notification-indicator pulse"></span>
+              <span class="notification-count">3</span>
+            </button>
+            <div class="dropdown-menu notification-dropdown">
+              <div class="notification-header">
+                <h6>Notifications</h6>
+                <span class="badge bg-primary">3 New</span>
+              </div>
+              <div class="notification-list">
+                <div class="notification-item unread">
+                  <div class="notification-icon success">
+                    <i class="fas fa-calendar-plus"></i>
+                  </div>
+                  <div class="notification-content">
+                    <div class="notification-title">New Event Created</div>
+                    <div class="notification-message">AI Hackathon 2025 has been scheduled</div>
+                    <div class="notification-time">2 min ago</div>
+                  </div>
+                </div>
+                <div class="notification-item unread">
+                  <div class="notification-icon info">
+                    <i class="fas fa-user-plus"></i>
+                  </div>
+                  <div class="notification-content">
+                    <div class="notification-title">New Registrations</div>
+                    <div class="notification-message">5 students registered for Engineering Fair</div>
+                    <div class="notification-time">1 hour ago</div>
+                  </div>
+                </div>
+                <div class="notification-item">
+                  <div class="notification-icon warning">
+                    <i class="fas fa-exclamation-circle"></i>
+                  </div>
+                  <div class="notification-content">
+                    <div class="notification-title">Event Reminder</div>
+                    <div class="notification-message">Research Symposium starts tomorrow</div>
+                    <div class="notification-time">5 hours ago</div>
+                  </div>
+                </div>
+              </div>
+              <div class="notification-footer">
+                <a href="#" class="view-all">View All Notifications</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Profile with Enhanced Design -->
+        <div class="nav-profile">
+          <div class="profile-wrapper dropdown">
+            <button class="btn-profile dropdown-toggle" type="button" 
+                    data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="profile-avatar">
+                <div class="avatar-image">
+                  <i class="fas fa-user-cog"></i>
+                </div>
+                <div class="online-indicator"></div>
+              </div>
+              <div class="profile-info">
+                <div class="profile-name">Admin User</div>
+                <div class="profile-role">Super Administrator</div>
+              </div>
+              <i class="fas fa-chevron-down profile-arrow"></i>
+            </button>
+            <div class="dropdown-menu profile-dropdown">
+              <div class="profile-header">
+                <div class="profile-avatar large">
+                  <div class="avatar-image">
+                    <i class="fas fa-user-cog"></i>
+                  </div>
+                </div>
+                <div class="profile-details">
+                  <div class="profile-name">Admin User</div>
+                  <div class="profile-email">admin@university.edu</div>
+                </div>
+              </div>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="myprotofolio.html">
+                <i class="fas fa-user-edit"></i>
+                <span>Edit Profile</span>
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="fas fa-cogs"></i>
+                <span>Settings</span>
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="fas fa-bell"></i>
+                <span>Notification Settings</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item logout-item" href="#">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Navigation Indicator -->
+  <div class="nav-active-indicator"></div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>function initDropdowns() {
+    // الإشعارات
+    const notificationBtn = document.querySelector('.btn-notification');
+    const notificationDropdown = document.querySelector('.notification-dropdown');
+    
+    // البروفايل
+    const profileBtn = document.querySelector('.btn-profile');
+    const profileDropdown = document.querySelector('.profile-dropdown');
+    
+    let currentDropdown = null;
+    
+    // فتح وإغلاق القوائم
+    function toggleDropdown(dropdown, btn) {
+        // إغلاق أي قائمة مفتوحة
+        if (currentDropdown && currentDropdown !== dropdown) {
+            currentDropdown.style.display = 'none';
+            document.querySelector('.dropdown-backdrop')?.remove();
+        }
+        
+        // تبديل القائمة الحالية
+        if (dropdown.style.display === 'block') {
+            dropdown.style.display = 'none';
+            document.querySelector('.dropdown-backdrop')?.remove();
+            currentDropdown = null;
+        } else {
+            dropdown.style.display = 'block';
+            currentDropdown = dropdown;
+            
+            // إضافة خلفية
+            const backdrop = document.createElement('div');
+            backdrop.className = 'dropdown-backdrop';
+            document.body.appendChild(backdrop);
+            
+            // إغلاق عند الضغط على الخلفية
+            backdrop.addEventListener('click', function() {
+                dropdown.style.display = 'none';
+                backdrop.remove();
+                currentDropdown = null;
+            });
+        }
+    }
+    
+    // إضافة event listeners
+    if (notificationBtn && notificationDropdown) {
+        notificationBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleDropdown(notificationDropdown, this);
+        });
+    }
+    
+    if (profileBtn && profileDropdown) {
+        profileBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleDropdown(profileDropdown, this);
+        });
+    }
+    
+    // إغلاق عند الضغط على ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && currentDropdown) {
+            currentDropdown.style.display = 'none';
+            document.querySelector('.dropdown-backdrop')?.remove();
+            currentDropdown = null;
+        }
+    });
+}
+
+// تشغيل الدالة
+document.addEventListener('DOMContentLoaded', initDropdowns);
+document.addEventListener("DOMContentLoaded", function(){
+  const currentPage = window.location.pathname.split('/').pop() || 'managmentevent.html';
+  document.querySelectorAll(".nav-link").forEach(link => {
+    if(link.getAttribute('href') === currentPage) link.classList.add("active");
+  });
+
+
+  document.getElementById('logoutBtn')?.addEventListener('click', function(e){
+    e.preventDefault();
+    if(confirm('Are you sure you want to logout?')) alert('Logging out...');
+  });
+  document.addEventListener('DOMContentLoaded', initDropdowns);
+
+});
+</script>
+</body>
+</html>
+
+
