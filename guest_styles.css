@@ -1,45 +1,64 @@
 /* Guest Pages Styles - Shared CSS for guest pages */
+/* Increased specificity to override Bootstrap styles */
 
 /* Scroll Container Styles for Image Gallery */
-.scroll-container {
-    overflow: hidden;
-    padding: 20px;
-    position: relative;
+section .scroll-container,
+main .scroll-container,
+body .scroll-container {
+    overflow: hidden !important;
+    padding: 20px !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
-.scroll-wrapper {
-    display: flex;
-    gap: 10px;
-    animation: scroll 20s linear infinite;
+section .scroll-wrapper,
+main .scroll-wrapper,
+body .scroll-wrapper {
+    display: flex !important;
+    gap: 10px !important;
+    animation: scroll 20s linear infinite !important;
+    width: max-content !important;
 }
 
-.scroll-container img {
-    flex: 0 0 auto;
-    width: 300px;
-    height: 200px;
-    border-radius: 10px;
-    object-fit: cover;
+section .scroll-container img,
+main .scroll-container img,
+body .scroll-container img {
+    flex: 0 0 auto !important;
+    width: 300px !important;
+    height: 200px !important;
+    border-radius: 10px !important;
+    object-fit: cover !important;
+    max-width: 300px !important;
+    min-width: 300px !important;
 }
+
 /* keyframes عرّفلي كيف يتغسر شكل العنصر مع مرور الوقت أثناء الأنيميشن  */
 @keyframes scroll {
     0% {
-        transform: translateX(0);
+        transform: translateX(0) !important;
     }
     100% {
-        transform: translateX(calc(-50% - 5px));
+        transform: translateX(calc(-50% - 5px)) !important;
     }
 }
 
 /* Pause animation on hover */
-.scroll-container:hover .scroll-wrapper {
-    animation-play-state: paused;  /* running*/ 
+section .scroll-container:hover .scroll-wrapper,
+main .scroll-container:hover .scroll-wrapper,
+body .scroll-container:hover .scroll-wrapper {
+    animation-play-state: paused !important;
 }
 
 /* responsive in mobile and tablet */
 @media (max-width: 768px) {
-    .scroll-container img {
-        width: 250px;
-        height: 167px;
+    section .scroll-container img,
+    main .scroll-container img,
+    body .scroll-container img {
+        width: 250px !important;
+        height: 167px !important;
+        max-width: 250px !important;
+        min-width: 250px !important;
     }
 }
 
