@@ -5,31 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style> 
         body {
             margin: 0;
             padding: 0px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0f172a;
+            background: #fff;
         }
         .login-section {
             min-height: 100vh;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: white;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 25px;
+           
         }
         .login-main {
             width: 100%;
             max-width: 450px;
         }
         .login-container {
-            background: #2d3748;
+            background: #fff;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(103, 45, 45, 0.3);
             padding: 35px;
-            border: 1px solid #4a5568;
+            border: 0.8px solid #d3dae6;
         }
         .login-header {
             text-align: center;
@@ -38,17 +41,17 @@
         .login-logo {
             width: 70px;
             height: 70px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: rgb(105, 24, 24);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            color: white;
+            color: #1a202c;
             font-size: 1.8rem;
         }
         .login-header h2 {
-            color: #e2e8f0;
+            color: #000000;
             font-weight: 700;
             margin-bottom: 8px;
         }
@@ -61,15 +64,11 @@
         }
         .form-group label {
             display: block;
-            font-weight: 600;
-            color: #e2e8f0;
+            font-weight: 400;
+            color: rgb(44, 42, 42);
             margin-bottom: 8px;
         }
-        .input-with-icon {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+    
         .input-with-icon i:first-child {
             position: absolute;
             left: 15px;
@@ -79,32 +78,18 @@
         }
         .input-with-icon input {
             width: 100%;
-            padding: 12px 15px 12px 45px;
-            border: 2px solid #4a5568;
+            padding: 12px 15px 12px 8px;
+            border: 1px solid #cdcecf;
             border-radius: 8px;
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: #1a202c;
-            color: #e2e8f0;
+            background:#fff;
+      
         }
         .input-with-icon input:focus {
             outline: none;
             border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-        .toggle-password {
-            position: absolute;
-            right: 15px;
-            background: none;
-            border: none;
-            color: #94a3b8;
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 5px;
-            transition: color 0.3s ease;
-        }
-        .toggle-password:hover {
-            color: #e2e8f0;
+            box-shadow: 0 0 0 5px rgba(66, 82, 177, 0);
         }
         .form-options {
             display: flex;
@@ -115,7 +100,7 @@
         .remember-me {
             display: flex;
             align-items: center;
-            color: #e2e8f0;
+            color: #000000;
             font-size: 0.9rem;
             cursor: pointer;
         }
@@ -155,47 +140,9 @@
             color: #8b5cf6;
             text-decoration: underline;
         }
-        .login-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
-        }
-        .login-footer {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #4a5568;
-            margin-top: 25px;
-        }
-        .login-footer p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 0;
-        }
-        .login-footer a {
-            color: #6366f1;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        .login-footer a:hover {
-            color: #8b5cf6;
-            text-decoration: underline;
-        }
+
+ 
+
         /* Responsive Design */
         @media (max-width: 480px) {
             .login-container {
@@ -216,14 +163,15 @@
     </style>
 </head>
 <body>
+    <div class="header"></div>
+
     <section class="login-section">
         <div class="login-main">
-            <div class="login-container">
-                <div class="login-header">
-                    <div class="login-logo">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <h2>Welcome Back</h2>
+            <div class="login-container  shadow-sm mx-auto">
+                <div class="login-header fw-bold">
+                    <h2 class=" fw-bold text-center mb-4">
+                        <i class="bi bi-box-arrow-in-right me-2"> </i>Welcome Back
+                    </h2>
                     <p>Please sign in to your account</p>
                 </div>
                 
@@ -231,7 +179,6 @@
                     <div class="form-group">
                         <label for="email">Email Address</label>
                         <div class="input-with-icon">
-                            <i class="fas fa-envelope"></i>
                             <input type="email" id="email" placeholder="Enter your email" required>
                         </div>
                     </div>
@@ -239,11 +186,7 @@
                     <div class="form-group">
                         <label for="password">Password</label>
                         <div class="input-with-icon">
-                            <i class="fas fa-lock"></i>
                             <input type="password" id="password" placeholder="Enter your password" required>
-                            <button type="button" class="toggle-password" id="togglePassword">
-                                <i class="fas fa-eye"></i>
-                            </button>
                         </div>
                     </div>
                     
@@ -256,47 +199,43 @@
                         <a href="#" class="forgot-password">Forgot Password?</a>
                     </div>
                     
-                    <button type="submit" class="login-btn">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Sign In
-                    </button>
+                    <div class="d-grid mb-3">
+                        <a href="dashboard.html" id="dashboardLink" class="btn btn-primary"> <i class="bi bi-box-arrow-in-right me-1"></i>Log in</a>
+
+                    </div>
+      
                 </form>
                 
-                <div class="login-footer">
-                    <p>Don't have an account? <a href="#">Sign Up</a></p>
-                </div>
+
             </div>
         </div>
     </section>
+    <div class="footer"></div>
+  
 
     <script>
-        // Toggle password visibility
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
-            const icon = this.querySelector('i');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
+            document.addEventListener("DOMContentLoaded", () => {
+            fetch("header.html")
+                .then(res => res.text())
+                .then(data => document.getElementById("header").innerHTML = data);
+            fetch("footer.html")
+                .then(res => res.text())
+                .then(data => document.getElementById("footer").innerHTML = data);
         });
+        
 
-        // Form submission: Redirects to admin dashboard after successful login
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Check if form is valid before redirecting
-            if (this.checkValidity()) {
-                // Redirect to admin dashboard in test folder
-                window.location.href = 'dashboard.html';
-            } else {
-                alert('Please fill all fields correctly.');
+             // Get form and login link elements
+             const form = document.getElementById('loginForm');
+             const link = document.getElementById('dashboardLink');
+        
+            // Validate form before allowing login
+            link.addEventListener('click', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault(); // Stop navigation
+                alert("Please fill all fields correctly.");
             }
         });
+   
     </script>
 </body>
 </html>
