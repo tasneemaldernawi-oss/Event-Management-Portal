@@ -511,7 +511,7 @@
                     </section>
                 </div>
 
-                <!-- Hidden Edit Box -->
+               
                 <div id="editBox" style="display:none; border:1px solid black; padding:10px; margin:20px;">
                     <h5>Edit Event Details</h5>
 
@@ -562,29 +562,7 @@
                 .then(data => document.getElementById("footer").innerHTML = data);
         });
         
-        // Logout is now handled directly in HTML with href="../../guest.html" and onclick confirmation
 
-        // Listen for navigation messages from header iframe
-        window.addEventListener('message', function(event) {
-            if (event.data.type === 'NAVIGATE') {
-                window.location.href = event.data.url;
-            }
-        });
-
-        // Update header active state
-        function updateHeaderActiveState() {
-            const currentPage = window.location.pathname.split('/').pop();
-            const headerFrame = document.querySelector('iframe[src*="header.html"]');
-            if (headerFrame && headerFrame.contentWindow) {
-                headerFrame.contentWindow.postMessage({
-                    type: 'UPDATE_ACTIVE_LINK',
-                    activePage: currentPage
-                }, '*');
-            }
-        }
-
-        // Call on page load
-        document.addEventListener('DOMContentLoaded', updateHeaderActiveState);
     </script>
 
     <script>
@@ -678,7 +656,7 @@
 
         let currentEvent = null;
 
-        // open edit box
+        //  edit box
         editButtons.forEach(button => {
             button.addEventListener("click", (e) => {
                 currentEvent = e.target.closest(".event");

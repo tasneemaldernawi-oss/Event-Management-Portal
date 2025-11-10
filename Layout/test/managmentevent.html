@@ -17,12 +17,19 @@
             margin-bottom: 20px;
             align-items: center;
             flex-wrap: wrap;
+            
+            
         }
         
         .search-form input {
             flex: 1;
             min-width: 200px;
+           
+            
         }
+     
+
+        
         
         .editBtn, .deleteBtn {
             background: none;
@@ -57,7 +64,7 @@
             font-weight: bold;
         }
         
-        /* Mobile responsiveness */
+        
         @media (max-width: 768px) {
             .container {
                 padding-top: 70px;
@@ -95,7 +102,7 @@
         <form role="search" class="search-form">
             <input type="search" id="query" class="form-control" placeholder="Search events...">
             <button type="button" class="btn btn-outline-secondary">
-                <i class="fas fa-search"></i>
+                <i class=" search-icon fas fa-search"></i>
             </button>
             <button type="button" class="btn btn-secondary" style="background-color: black;">+ Add New Event</button>
         </form>
@@ -391,38 +398,11 @@
             });
 
             
-            window.addEventListener('message', function(event) {
-                if (event.data.type === 'NAVIGATE') {
-                    window.location.href = event.data.url;
-                }
-            });
-
-
         });
 
-        // Function to load halls from localStorage into the hall select dropdown
-function loadHallsIntoSelect() {
-    const savedHalls = localStorage.getItem('eventHalls');
-    const hallSelect = document.getElementById('hallSelect');
+      
     
-    if (savedHalls) {
-        const halls = JSON.parse(savedHalls);
-        // Clear existing options except the first one
-        while (hallSelect.children.length > 1) {
-            hallSelect.removeChild(hallSelect.lastChild);
-        }
-        
-        // Add halls from localStorage
-        halls.forEach(hall => {
-            if (hall.status === 'Available') {
-                const option = document.createElement('option');
-                option.value = hall.name;
-                option.textContent = hall.name;
-                hallSelect.appendChild(option);
-            }
-        });
-    }
-}
+
 
 
 
